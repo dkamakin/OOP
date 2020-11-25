@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resources/exit.png</file>
+        <file>resources/coin.png</file>
+        <file>resources/wall.png</file>
+        <file>resources/empty.png</file>
+        <file>resources/player.png</file>
+        <file>resources/enter.png</file>
+        <file>resources/border.png</file>
+        <file>resources/enemyStatue.png</file>
+        <file>resources/ghost.png</file>
+        <file>resources/girl.png</file>
+    </qresource>
+</RCC>

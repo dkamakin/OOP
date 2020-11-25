@@ -1,0 +1,13 @@
+#ifndef DEBUFFTEMPLATE_H
+#define DEBUFFTEMPLATE_H
+
+#include "enemytemplate.h"
+
+using sDebuffTemplate = std::shared_ptr <class DebuffTemplate>;
+
+class DebuffTemplate : public EnemyTemplate {
+public:
+    void interact(Player &player) override;
+};
+
+#endif // DEBUFFTEMPLATE_H
