@@ -19,6 +19,9 @@
 #define EMPTY_IMAGE ":/resources/empty.png"
 #define PLAYER_IMAGE ":/resources/player.png"
 #define BORDER ":/resources/border.png"
+#define STATUE ":/resources/enemyStatue.png"
+#define GIRL ":/resources/girl.png"
+#define GHOST ":/resources/ghost.png"
 
 #define FIELD_COEFFICIENT 0.9
 

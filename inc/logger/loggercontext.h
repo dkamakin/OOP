@@ -14,7 +14,6 @@ class LoggerContext {
     static uLoggerContext logger;
 
 public:
-    LoggerContext() = default;
     ~LoggerContext() = default;
 
     static LoggerContext& getInstance();
@@ -26,6 +25,9 @@ public:
     void unsubscribe(Logger *logger);
 
     friend LoggerContext& operator<<(LoggerContext &context, const std::string &info);
+
+private:
+    LoggerContext() = default;
 };
 
 #endif // LOGGERCONTEXT_H

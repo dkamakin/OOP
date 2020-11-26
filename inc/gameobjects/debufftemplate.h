@@ -2,6 +2,7 @@
 #define DEBUFFTEMPLATE_H
 
 #include "enemytemplate.h"
+#include "player.h"
 
 using sDebuffTemplate = std::shared_ptr <class DebuffTemplate>;
 

@@ -2,6 +2,7 @@
 #define THEFTTEMPLATE_H
 
 #include "enemytemplate.h"
+#include "player.h"
 
 using sTheftTemplate = std::shared_ptr <class TheftTemplate>;
 

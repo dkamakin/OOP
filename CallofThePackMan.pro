@@ -36,9 +36,10 @@ SOURCES += \
     src/gameobjects/thefttemplate.cpp
 
 HEADERS += \
+    inc/gameobjects/enemyabstract.h \
+    inc/gameobjects/enemy.h \
     inc/gameobjects/attacktemplate.h \
     inc/gameobjects/debufftemplate.h \
-    inc/gameobjects/enemy.h \
     inc/gameobjects/enemytemplate.h \
     inc/logger/consoleloggerbridge.h \
     inc/logger/fileloggerbridge.h \

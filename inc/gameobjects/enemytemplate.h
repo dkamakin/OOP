@@ -2,14 +2,15 @@
 #define ENEMYTEMPLATE_H
 
 #include <memory>
-#include "player.h"
+
+class Player;
 
 using sEnemyTemplate = std::shared_ptr <class EnemyTemplate>;
 
 class EnemyTemplate {
 public:
     virtual void interact(Player &player) = 0;
-    ~EnemyTemplate() = default;
+    virtual ~EnemyTemplate() = default;
 };
 
 #endif // ENEMYTEMPLATE_H

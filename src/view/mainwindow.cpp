@@ -116,6 +116,7 @@ QImage MainWindow::getImageObject(sGameObject object) {
 void MainWindow::updateScene() {
     auto field = controller_->getField();
     auto playerCoords = controller_->getPlayerCoords();
+    auto enemies = controller_->getEnemies();
     QImage cellImage;
 
     for (Cell &cell : *field) {
@@ -135,6 +136,11 @@ void MainWindow::updateScene() {
         if (cell.getCoords() == playerCoords) {
             QPainter painter(&cellImage);
             painter.drawImage(0, 0, QImage(PLAYER_IMAGE).scaled(cellWidth_, cellHeight_));
+        }
+
+        if (controller_->isEnemyOnPoint(cell.getCoords())) {
+            QPainter painter(&cellImage);
+            painter.drawImage(0, 0, QImage(GHOST).scaled(cellWidth_, cellHeight_));
         }
 
         rect->setBrush(cellImage);

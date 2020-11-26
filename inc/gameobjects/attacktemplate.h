@@ -2,6 +2,7 @@
 #define ATTACKTEMPLATE_H
 
 #include "enemytemplate.h"
+#include "player.h"
 
 using sAttackTemplate = std::shared_ptr <class AttackTemplate>;
 
