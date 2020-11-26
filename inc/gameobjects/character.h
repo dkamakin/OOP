@@ -23,6 +23,7 @@ public:
     Point2D getCoords();
     size_t getHealth();
     size_t getPoints();
+    bool getHealthDebuff();
     bool getEnd();
 
     void setCoords(Point2D coords);

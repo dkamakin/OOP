@@ -17,6 +17,10 @@ public:
         template_->interact(player);
     }
 
+    const std::type_info& getTypeInfo() {
+        return typeid(Enemy<EnemyTemplate>);
+    }
+
     ~Enemy() = default;
 };
 

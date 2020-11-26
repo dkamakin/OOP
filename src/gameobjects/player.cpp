@@ -12,6 +12,7 @@ std::string Player::toString() {
     return "Coords: " + getCoords().toString() + "\n" +
             "Points: " + std::to_string(getPoints()) + "\n" +
             "Health: " + std::to_string(getHealth()) + "\n" +
+            "Health debuff" + std::to_string(getHealthDebuff()) + '\n' +
             "End: " + (getEnd() ? "true" : "false") + "\n";
 }
 

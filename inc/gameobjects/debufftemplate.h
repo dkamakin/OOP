@@ -8,6 +8,7 @@ using sDebuffTemplate = std::shared_ptr <class DebuffTemplate>;
 
 class DebuffTemplate : public EnemyTemplate {
 public:
+    DebuffTemplate() = default;
     void interact(Player &player) override;
 };
 

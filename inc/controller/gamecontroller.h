@@ -31,7 +31,8 @@ public:
     size_t getPoints();
     sField getField();
     std::vector<sEnemyAbstract>& getEnemies();
-    bool isEnemyOnPoint(Point2D coords);
+    bool isEnemy(Point2D coords);
+    sEnemyAbstract getEnemy(Point2D coords);
     size_t getPlayerHealth();
     CELL_TYPE getType(Point2D &coords);
     bool isEnd();

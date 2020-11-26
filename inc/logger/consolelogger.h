@@ -1,7 +1,6 @@
 #ifndef CONSOLELOGGER_H
 #define CONSOLELOGGER_H
 
-#include <memory>
 #include "consoleloggerbridge.h"
 #include "logger.h"
 

@@ -16,15 +16,15 @@ class Cell {
 
 public:
     Cell() = default;
-    Cell(CELL_TYPE t, Point2D c, sGameObject obj);
+    Cell(CELL_TYPE type, Point2D coords, sGameObject object);
 
     Point2D getCoords();
     CELL_TYPE getType();
     sGameObject getObject();
 
-    void setCoords(Point2D c);
-    void setType(CELL_TYPE t);
-    void setObject(sGameObject obj);
+    void setCoords(Point2D coords);
+    void setType(CELL_TYPE type);
+    void setObject(sGameObject object);
 };
 
 #endif // CELL_H

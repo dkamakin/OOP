@@ -1,5 +1,4 @@
 #include "gameobjects/gameinteract.h"
-#include <QMessageBox>
 
 void GameInteract::interact(Character &character, sGameObject &object) {
     if (!object)

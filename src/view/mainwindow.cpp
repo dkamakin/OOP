@@ -1,4 +1,5 @@
 #include "view/mainwindow.h"
+#include <QLabel>
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -10,6 +11,10 @@ MainWindow::MainWindow(QWidget *parent)
     screenSize_ = QDesktopWidget().availableGeometry(this).size();
     setFixedSize(screenSize_);
     ui_->view->setFixedSize(screenSize_ * FIELD_COEFFICIENT);
+    auto label = new QLabel(this);
+    label->move(25, 85);
+    label->setStyleSheet("QLabel { font-weight: bold; font-size: 16px; color: white; }");
+    label->setText("Floor: ");
 
     controller_ = sGameController(new GameController(sField(new Field(GameField::getInstance())),
                                                     sPlayer(new Player(Point2D(), 100, sGameInteract(new GameInteract)))));
@@ -113,6 +118,22 @@ QImage MainWindow::getImageObject(sGameObject object) {
     return QImage(EMPTY_IMAGE).scaled(cellWidth_, cellHeight_, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 }
 
+QImage MainWindow::getImageEnemy(sEnemyAbstract enemy) {
+    if (!enemy)
+        return QImage(EMPTY_IMAGE).scaled(cellWidth_, cellHeight_, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+
+    auto &type = enemy->getTypeInfo();
+
+    if (type == typeid(Enemy<TheftTemplate>))
+        return QImage(GIRL_IMAGE).scaled(cellWidth_, cellHeight_, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+    else if (type == typeid(Enemy<AttackTemplate>))
+        return QImage(STATUE_IMAGE).scaled(cellWidth_, cellHeight_, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+    else if (type == typeid(Enemy<DebuffTemplate>))
+        return QImage(GHOST_IMAGE).scaled(cellWidth_, cellHeight_, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+
+    return QImage(EMPTY_IMAGE).scaled(cellWidth_, cellHeight_, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+}
+
 void MainWindow::updateScene() {
     auto field = controller_->getField();
     auto playerCoords = controller_->getPlayerCoords();
@@ -131,16 +152,16 @@ void MainWindow::updateScene() {
         }
 
         if (!y || !x || y == field->getHeight() - 1 || x == field->getWidth() - 1)
-            rect->setBrush(QBrush(QImage(BORDER).scaled(cellWidth_, cellHeight_, Qt::IgnoreAspectRatio, Qt::SmoothTransformation)));
+            rect->setBrush(QBrush(QImage(BORDER_IMAGE).scaled(cellWidth_, cellHeight_, Qt::IgnoreAspectRatio, Qt::SmoothTransformation)));
 
         if (cell.getCoords() == playerCoords) {
             QPainter painter(&cellImage);
             painter.drawImage(0, 0, QImage(PLAYER_IMAGE).scaled(cellWidth_, cellHeight_));
         }
 
-        if (controller_->isEnemyOnPoint(cell.getCoords())) {
+        if (controller_->isEnemy(cell.getCoords())) {
             QPainter painter(&cellImage);
-            painter.drawImage(0, 0, QImage(GHOST).scaled(cellWidth_, cellHeight_));
+            painter.drawImage(0, 0, getImageEnemy(controller_->getEnemy(cell.getCoords())));
         }
 
         rect->setBrush(cellImage);

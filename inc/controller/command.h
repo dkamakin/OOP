@@ -1,7 +1,6 @@
 #ifndef COMMAND_H
 #define COMMAND_H
 
-#include <memory>
 #include "controller/gamecontroller.h"
 
 using sCommand = std::shared_ptr <class Command>;

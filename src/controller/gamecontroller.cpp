@@ -26,8 +26,8 @@ void GameController::newGame() {
     field_->makeMap();
     player_ = sPlayer(new Player(Point2D(1, 1), 100, sGameInteract(new GameInteract)));
     enemies_.push_back(sEnemyAbstract(new Enemy<TheftTemplate>(Point2D(1, 4))));
-    enemies_.push_back(sEnemyAbstract(new Enemy<TheftTemplate>(Point2D(4, 7))));
-    enemies_.push_back(sEnemyAbstract(new Enemy<TheftTemplate>(Point2D(8, 1))));
+    enemies_.push_back(sEnemyAbstract(new Enemy<AttackTemplate>(Point2D(4, 7))));
+    enemies_.push_back(sEnemyAbstract(new Enemy<DebuffTemplate>(Point2D(10, 1))));
 }
 
 std::vector<sEnemyAbstract>& GameController::getEnemies() {
@@ -53,12 +53,20 @@ size_t GameController::getPlayerHealth() {
     return player_->getHealth();
 }
 
-bool GameController::isEnemyOnPoint(Point2D coords) {
+bool GameController::isEnemy(Point2D coords) {
     for (auto &enemy : enemies_)
         if (enemy->getCoords() == coords)
             return true;
 
     return false;
+}
+
+sEnemyAbstract GameController::getEnemy(Point2D coords) {
+    for (auto &enemy : enemies_)
+        if (enemy->getCoords() == coords)
+            return enemy;
+
+    return nullptr;
 }
 
 void GameController::movePlayer(DIRECTION direction) {
@@ -71,6 +79,14 @@ void GameController::movePlayer(DIRECTION direction) {
     LoggerContext::getInstance() << (object ? "Object: " + object->toString() : "Object: null") << "\n";
 
     *player_ += object;
+
+    if (isEnemy(getPlayerCoords())) {
+        LoggerContext::getInstance() << player_->toString() << "\n\n";
+        LoggerContext::getInstance() << "Interacting with the enemy" << "\n\n";
+        getEnemy(getPlayerCoords())->interact(*player_.get());
+        player_->setCoords(oldCoords);
+        return;
+    }
 
     if (field_->getType(getPlayerCoords()) == WALL) {
         LoggerContext::getInstance() << player_->toString() << "\n\n";

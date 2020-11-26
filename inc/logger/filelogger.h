@@ -1,7 +1,6 @@
 #ifndef FILELOGGER_H
 #define FILELOGGER_H
 
-#include <memory>
 #include <fstream>
 #include "logger.h"
 #include "fileloggerbridge.h"

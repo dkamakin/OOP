@@ -1,7 +1,6 @@
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
 
-#include <memory>
 #include "character.h"
 
 class Player;

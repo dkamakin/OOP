@@ -8,6 +8,7 @@ using sAttackTemplate = std::shared_ptr <class AttackTemplate>;
 
 class AttackTemplate : public EnemyTemplate {
 public:
+    AttackTemplate() = default;
     void interact(Player &player) override;
 };
 

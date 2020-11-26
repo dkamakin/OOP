@@ -17,10 +17,20 @@ void Character::setHealth(size_t health) {
 }
 
 void Character::decHealth(size_t health) {
+    if (!health_)
+        return;
+
     health_ -= health;
 }
 
+bool Character::getHealthDebuff() {
+    return healthDebuff_;
+}
+
 void Character::decPoints(size_t points) {
+    if (!points_)
+        return;
+
     points_ -= points;
 }
 
