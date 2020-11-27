@@ -29,6 +29,7 @@ public:
 
     Point2D getPlayerCoords();
     size_t getPoints();
+    std::string getPlayerInfo();
     sField getField();
     std::vector<sEnemyAbstract>& getEnemies();
     bool isEnemy(Point2D coords);

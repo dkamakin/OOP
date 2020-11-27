@@ -6,6 +6,8 @@ CONFIG += c++11
 INCLUDEPATH += $$PWD/inc
 
 SOURCES += \
+    src/view/levelmapper.cpp \
+    src/view/objectmapper.cpp \
     src/gameobjects/attacktemplate.cpp \
     src/gameobjects/debufftemplate.cpp \
     src/logger/logger.cpp \
@@ -71,7 +73,9 @@ HEADERS += \
     inc/controller/movecommand.h \
     inc/controller/newgamecommand.h \
     inc/logger/loggerbridge.h \
-    inc/gameobjects/thefttemplate.h
+    inc/gameobjects/thefttemplate.h \
+    inc/view/objectmapper.h \
+    inc/view/levelmapper.h
 
 FORMS += \
     inc/view/mainwindow.ui

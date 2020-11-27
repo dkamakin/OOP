@@ -11,19 +11,16 @@ MainWindow::MainWindow(QWidget *parent)
     screenSize_ = QDesktopWidget().availableGeometry(this).size();
     setFixedSize(screenSize_);
     ui_->view->setFixedSize(screenSize_ * FIELD_COEFFICIENT);
-    auto label = new QLabel(this);
-    label->move(25, 85);
-    label->setStyleSheet("QLabel { font-weight: bold; font-size: 16px; color: white; }");
-    label->setText("Floor: ");
 
+    mapper_ = sLevelMapper(new LevelMapper(screenSize_.width(), screenSize_.height(), FIELD_COEFFICIENT));
     controller_ = sGameController(new GameController(sField(new Field(GameField::getInstance())),
                                                     sPlayer(new Player(Point2D(), 100, sGameInteract(new GameInteract)))));
 
     sNewGameCommand command(new NewGameCommand(controller_));
     command->execute();
 
-    initScene();
-    updateScene();
+    mapper_->initScene(scene_, controller_);
+    mapper_->updateScene(controller_);
     ui_->view->setScene(scene_.get());
 }
 
@@ -52,121 +49,25 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
 
     if (command) {
         command->execute();
-        updateScene();
+        mapper_->updateScene(controller_);
     }
 
     if (controller_->isEnd()) {
         auto reply = askQuestion("The game is over", "Would you like to restart?");
-        if (reply == QMessageBox::Yes) {
+        if (reply == QMessageBox::Yes)
             command = sNewGameCommand(new NewGameCommand(controller_));
-        } else {
+        else
             command = sEndGameCommand(new EndGameCommand(controller_));
-        }
 
         command->execute();
     }
 }
 
 QMessageBox::StandardButton MainWindow::askQuestion(std::string top, std::string bottom) {
-    return QMessageBox::question(this, QString::fromStdString(top), QString::fromStdString(bottom), QMessageBox::Yes | QMessageBox::No);
+    return QMessageBox::question(this, QString::fromStdString(top), QString::fromStdString(bottom),
+                                 QMessageBox::Yes | QMessageBox::No);
 }
 
-void MainWindow::initScene() {
-    auto field = controller_->getField();
-    auto width = field->getWidth();
-    auto height = field->getHeight();
-    cellWidth_ = (screenSize_.width() * FIELD_COEFFICIENT) / width;
-    cellHeight_ = (screenSize_.height() * FIELD_COEFFICIENT) / height;
-
-    scene_ = sQGraphicsScene(new QGraphicsScene);
-    cells_ = sssQGraphicsRectItem(new ssQGraphicsRectItem[height], std::default_delete<ssQGraphicsRectItem[]>());
-
-    for (auto y = 0; y < height; y++) {
-        cells_.get()[y] = ssQGraphicsRectItem(new sQGraphicsRectItem[height], std::default_delete<sQGraphicsRectItem[]>());
-        for (auto x = 0; x < width; x++) {
-            cells_.get()[y].get()[x] = sQGraphicsRectItem(new QGraphicsRectItem(x * cellWidth_, y * cellHeight_,
-                                            cellWidth_, cellHeight_, nullptr));
-            scene_->addItem(cells_.get()[y].get()[x].get());
-        }
-    }
-}
-
-QImage MainWindow::getImageType(CELL_TYPE type) {
-    switch (type) {
-        case EMPTY:
-            return QImage(EMPTY_IMAGE).scaled(cellWidth_, cellHeight_, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-        case WALL:
-            return QImage(WALL_IMAGE).scaled(cellWidth_, cellHeight_, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-        case ENTER:
-            return QImage(ENTER_IMAGE).scaled(cellWidth_, cellHeight_, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-        default:
-            return QImage(EMPTY_IMAGE).scaled(cellWidth_, cellHeight_, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-    }
-}
-
-QImage MainWindow::getImageObject(sGameObject object) {
-    if (!object)
-        return QImage(EMPTY_IMAGE).scaled(cellWidth_, cellHeight_, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-
-    auto &type = object->getTypeInfo();
-
-    if (type == typeid(ExitObject))
-        return QImage(EXIT_IMAGE).scaled(cellWidth_, cellHeight_, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-    else if (type == typeid(CoinObject))
-        return QImage(COIN_IMAGE).scaled(cellWidth_, cellHeight_, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-
-    return QImage(EMPTY_IMAGE).scaled(cellWidth_, cellHeight_, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-}
-
-QImage MainWindow::getImageEnemy(sEnemyAbstract enemy) {
-    if (!enemy)
-        return QImage(EMPTY_IMAGE).scaled(cellWidth_, cellHeight_, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-
-    auto &type = enemy->getTypeInfo();
-
-    if (type == typeid(Enemy<TheftTemplate>))
-        return QImage(GIRL_IMAGE).scaled(cellWidth_, cellHeight_, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-    else if (type == typeid(Enemy<AttackTemplate>))
-        return QImage(STATUE_IMAGE).scaled(cellWidth_, cellHeight_, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-    else if (type == typeid(Enemy<DebuffTemplate>))
-        return QImage(GHOST_IMAGE).scaled(cellWidth_, cellHeight_, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-
-    return QImage(EMPTY_IMAGE).scaled(cellWidth_, cellHeight_, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-}
-
-void MainWindow::updateScene() {
-    auto field = controller_->getField();
-    auto playerCoords = controller_->getPlayerCoords();
-    auto enemies = controller_->getEnemies();
-    QImage cellImage;
-
-    for (Cell &cell : *field) {
-        auto x = cell.getCoords().getX(), y = cell.getCoords().getY();
-        cellImage = getImageType(cell.getType());
-
-        auto rect = cells_.get()[y].get()[x];
-
-        if (cell.getObject()) {
-            QPainter painter(&cellImage);
-            painter.drawImage(0, 0, getImageObject(cell.getObject()));
-        }
-
-        if (!y || !x || y == field->getHeight() - 1 || x == field->getWidth() - 1)
-            rect->setBrush(QBrush(QImage(BORDER_IMAGE).scaled(cellWidth_, cellHeight_, Qt::IgnoreAspectRatio, Qt::SmoothTransformation)));
-
-        if (cell.getCoords() == playerCoords) {
-            QPainter painter(&cellImage);
-            painter.drawImage(0, 0, QImage(PLAYER_IMAGE).scaled(cellWidth_, cellHeight_));
-        }
-
-        if (controller_->isEnemy(cell.getCoords())) {
-            QPainter painter(&cellImage);
-            painter.drawImage(0, 0, getImageEnemy(controller_->getEnemy(cell.getCoords())));
-        }
-
-        rect->setBrush(cellImage);
-    }
-}
 
 void MainWindow::on_actionAuthor_triggered() {
     QMessageBox::information(this, "Author", "Made by Kamakin Daniil, 9381");

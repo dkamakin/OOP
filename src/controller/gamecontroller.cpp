@@ -14,6 +14,10 @@ Point2D GameController::getPlayerCoords() {
     return player_->getCoords();
 }
 
+std::string GameController::getPlayerInfo() {
+    return player_->toString();
+}
+
 size_t GameController::getPoints() {
     return player_->getPoints();
 }

@@ -76,5 +76,5 @@ void Character::setEnd(bool value) {
 }
 
 bool Character::getEnd() {
-    return end_;
+    return end_ || !health_;
 }
