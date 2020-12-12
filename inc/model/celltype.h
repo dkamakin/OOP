@@ -1,11 +1,11 @@
 #ifndef CELLTYPE_H
 #define CELLTYPE_H
 
-enum CELL_TYPE {
-    EMPTY,
-    WALL,
-    ENTER,
-    EXIT,
+enum CellType {
+    Empty,
+    Wall,
+    Enter,
+    Exit,
 };
 
 #endif // CELLTYPE_H

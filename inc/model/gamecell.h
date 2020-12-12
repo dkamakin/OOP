@@ -12,20 +12,20 @@ using sGameCell = std::shared_ptr <class GameCell>;
 using ssGameCell = std::shared_ptr <sGameCell>;
 
 class GameCell {
-    CELL_TYPE type_;
+    CellType type_;
     Point2D coords_;
     sGameObject object_;
 
 public:
     GameCell() = default;
-    GameCell(CELL_TYPE type, Point2D point, sGameObject object);
+    GameCell(CellType type, Point2D point, sGameObject object);
     ~GameCell() = default;
 
-    CELL_TYPE getType();
+    CellType getType();
     Point2D getCoords();
     sGameObject& getObject();
 
-    void setType(CELL_TYPE t);
+    void setType(CellType t);
     void setCoords(Point2D point);
     void setObject(sGameObject obj);
 };

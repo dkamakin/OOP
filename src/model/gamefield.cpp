@@ -72,10 +72,10 @@ void GameField::setSize(int height, int width) {
     deleteField();
     height_ = height;
     width_ = width;
-    field_ = ssGameCell(new sGameCell[height], std::default_delete<sGameCell[]>());
+    field_ = ssGameCell(new sGameCell[height_], std::default_delete<sGameCell[]>());
 
-    for (auto y = 0; y < width; y++)
-        field_.get()[y] = sGameCell(new GameCell[height], std::default_delete<GameCell[]>());
+    for (auto y = 0; y < height_; y++)
+        field_.get()[y] = sGameCell(new GameCell[width_], std::default_delete<GameCell[]>());
 }
 
 GameField::GameField(GameField &&obj) : height_(obj.height_), width_(obj.width_),
@@ -104,7 +104,7 @@ GameCell& GameField::getCell(Point2D coords) {
     return field_.get()[coords.getY()].get()[coords.getX()];
 }
 
-CELL_TYPE GameField::getType(Point2D coords) {
+CellType GameField::getType(Point2D coords) {
     return field_.get()[coords.getY()].get()[coords.getX()].getType();
 }
 

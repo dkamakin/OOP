@@ -2,6 +2,7 @@
 #define POINT2D_H
 
 #include <iostream>
+#include "controller/direction.h"
 
 class Point2D {
     int x_;
@@ -11,9 +12,9 @@ public:
     Point2D() = default;
     Point2D(int x, int y);
 
-    void setCoords(int x, int y);
     int getX();
     int getY();
+    void move(Direction direction);
     void setX(int value);
     void setY(int value);
     std::string toString();

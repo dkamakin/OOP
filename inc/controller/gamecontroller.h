@@ -9,33 +9,43 @@
 #include "gameobjects/thefttemplate.h"
 #include "gameobjects/attacktemplate.h"
 #include "gameobjects/debufftemplate.h"
-#include <vector>
+#include "controllerstate.h"
+#include "playerturnstate.h"
+#include "enemyturnstate.h"
+#include <list>
 
 using sGameController = std::shared_ptr <class GameController>;
+using listEnemies = std::list<sEnemyAbstract>;
 
 class GameController {
     sField field_;
     sPlayer player_;
-    size_t moveCount_;
-    std::vector<sEnemyAbstract> enemies_;
+    sControllerState state_;
+    listEnemies enemies_;
 
 public:
-    GameController(sField object, sPlayer player);
+    GameController(sField object, sControllerState state);
     ~GameController();
 
-    void movePlayer(DIRECTION direction);
     void newGame();
     void endGame();
+    void playerAttack();
+
+    void setTurn(sControllerState state);
+    void move(Direction direction);
+    void startTurn();
 
     Point2D getPlayerCoords();
-    size_t getPoints();
     std::string getPlayerInfo();
     sField getField();
-    std::vector<sEnemyAbstract>& getEnemies();
-    bool isEnemy(Point2D coords);
-    sEnemyAbstract getEnemy(Point2D coords);
+    sPlayer& getPlayer();
+    listEnemies& getEnemies();
+    size_t getPoints();
     size_t getPlayerHealth();
-    CELL_TYPE getType(Point2D &coords);
+    sEnemyAbstract getEnemy(Point2D coords);
+    CellType getType(Point2D &coords);
+
+    bool isEnemy(Point2D coords);
     bool isEnd();
 };
 

@@ -11,6 +11,7 @@ class EnemyAbstract : public Character {
 public:
     virtual void interact(Player &player) = 0;
     virtual const std::type_info& getTypeInfo() = 0;
+    virtual void operator+=(Player &player) = 0;
     virtual ~EnemyAbstract() = default;
 };
 

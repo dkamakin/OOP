@@ -38,9 +38,9 @@ public:
     int getHeight();
     int getWidth();
 
-    QImage getImageType(CELL_TYPE type);
-    QImage getImageObject(sGameObject object);
-    QImage getImageEnemy(sEnemyAbstract enemy);
+    QImage getImage(CellType type);
+    QImage getImage(sGameObject object);
+    QImage getImage(sEnemyAbstract enemy);
 };
 
 #endif // OBJECTSMAPPER_H

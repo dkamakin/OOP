@@ -6,12 +6,11 @@
 using sMoveCommand = std::shared_ptr <class MoveCommand>;
 
 class MoveCommand : public Command {
-    DIRECTION direction_;
+    Direction direction_;
 
 public:
-    MoveCommand(sGameController controller, DIRECTION direction);
+    MoveCommand(sGameController controller, Direction direction);
     void execute() override;
-    ~MoveCommand() = default;
 };
 
 #endif // MOVECOMMAND_H

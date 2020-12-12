@@ -20,7 +20,10 @@ void Character::decHealth(size_t health) {
     if (!health_)
         return;
 
-    health_ -= health;
+    if (health_ - health * 1.5 < 0)
+        health_ = 0;
+    else
+        health_ -= healthDebuff_ ? health * 1.5 : health;
 }
 
 bool Character::getHealthDebuff() {
@@ -38,23 +41,13 @@ void Character::setHealthDebuff(bool debuff) {
     healthDebuff_ = debuff;
 }
 
-void Character::move(DIRECTION direction) {
-    switch (direction) {
-        case UP:
-            coords_ += Point2D(0, -1);
-            break;
-        case LEFT:
-            coords_ += Point2D(-1, 0);
-            break;
-        case DOWN:
-            coords_ += Point2D(0, 1);
-            break;
-        case RIGHT:
-            coords_ += Point2D(1, 0);
-            break;
-        default:
-            break;;
-    }
+void Character::move(Direction direction) {
+    direction_ = direction;
+    coords_.move(direction);
+}
+
+Direction Character::getDirection() {
+    return direction_;
 }
 
 size_t Character::getPoints() {
@@ -65,10 +58,12 @@ void Character::setPoints(size_t points) {
     points_ = points;
 }
 
+void Character::setDirection(Direction direction) {
+    direction_ = direction;
+}
+
 void Character::addPoints(size_t points) {
     points_ += points;
-    if (points_ >= 2)
-        end_ = true;
 }
 
 void Character::setEnd(bool value) {
@@ -76,5 +71,14 @@ void Character::setEnd(bool value) {
 }
 
 bool Character::getEnd() {
-    return end_ || !health_;
+    return end_ || !health_ || points_ >= 2;
+}
+
+std::string Character::toString() {
+    return "Coords: " + getCoords().toString() + "\n" +
+            "Points: " + std::to_string(getPoints()) + "\n" +
+            "Health: " + std::to_string(getHealth()) + "\n" +
+            "Health debuff: " + (getHealthDebuff() ? "yes" : "no") + '\n' +
+            "End: " + (getEnd() ? "true" : "false") + "\n" +
+            "Direction " + static_cast<char>(direction_);
 }

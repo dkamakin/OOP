@@ -18,7 +18,7 @@ class GameField {
 public:
     int getHeight();
     int getWidth();
-    CELL_TYPE getType(Point2D coords);
+    CellType getType(Point2D coords);
     sGameObject& getObject(Point2D coords);
 
     void setSize(int rows, int cols);

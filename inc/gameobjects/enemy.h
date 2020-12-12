@@ -9,19 +9,26 @@ class Enemy : public EnemyAbstract {
     sEnemyTemplate template_;
 
 public:
-    Enemy(Point2D coords) : template_(sEnemyTemplate(new EnemyTemplate)) {
+    Enemy(Point2D coords, int health) : template_(sEnemyTemplate(new EnemyTemplate)) {
         setCoords(coords);
+        setHealth(health);
     }
 
+    const std::type_info& getTypeInfo() override {
+        return typeid(Enemy<EnemyTemplate>);
+    }
+
+    void operator+=(Player &player) override {
+        interact(player);
+    }
+
+    ~Enemy() = default;
+
+private:
     void interact(Player &player) override {
         template_->interact(player);
     }
 
-    const std::type_info& getTypeInfo() {
-        return typeid(Enemy<EnemyTemplate>);
-    }
-
-    ~Enemy() = default;
 };
 
 #endif // ENEMY_H

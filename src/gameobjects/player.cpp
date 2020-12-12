@@ -9,14 +9,6 @@ Player::Player(Point2D coords, size_t health, sInteractStrategy strategy) {
     strategy_ = strategy;
 }
 
-std::string Player::toString() {
-    return "Coords: " + getCoords().toString() + "\n" +
-            "Points: " + std::to_string(getPoints()) + "\n" +
-            "Health: " + std::to_string(getHealth()) + "\n" +
-            "Health debuff: " + (getHealthDebuff() ? "yes" : "no") + '\n' +
-            "End: " + (getEnd() ? "true" : "false") + "\n";
-}
-
 void Player::setStrategy(sInteractStrategy strategy) {
     strategy_ = strategy;
 }
@@ -26,6 +18,13 @@ void Player::operator+=(sGameObject &right) {
         return;
 
     strategy_->interact(*this, right);
+}
+
+void Player::operator+=(sEnemyAbstract &right) {
+    if (!right)
+        return;
+
+    right->decHealth(10);
 }
 
 std::ostream& Player::operator<<(std::ostream &out) {

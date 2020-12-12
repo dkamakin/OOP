@@ -6,6 +6,9 @@ CONFIG += c++11
 INCLUDEPATH += $$PWD/inc
 
 SOURCES += \
+    src/controller/attackcommand.cpp \
+    src/controller/enemyturnstate.cpp \
+    src/controller/playerturnstate.cpp \
     src/view/levelmapper.cpp \
     src/view/objectmapper.cpp \
     src/gameobjects/attacktemplate.cpp \
@@ -38,6 +41,9 @@ SOURCES += \
     src/gameobjects/thefttemplate.cpp
 
 HEADERS += \
+    inc/controller/attackcommand.h \
+    inc/controller/controllerstate.h \
+    inc/controller/enemyturnstate.h \
     inc/gameobjects/enemyabstract.h \
     inc/gameobjects/enemy.h \
     inc/gameobjects/attacktemplate.h \
@@ -75,7 +81,8 @@ HEADERS += \
     inc/logger/loggerbridge.h \
     inc/gameobjects/thefttemplate.h \
     inc/view/objectmapper.h \
-    inc/view/levelmapper.h
+    inc/view/levelmapper.h \
+    inc/controller/playerturnstate.h
 
 FORMS += \
     inc/view/mainwindow.ui

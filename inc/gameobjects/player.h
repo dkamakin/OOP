@@ -5,6 +5,7 @@
 #include "interactstrategy.h"
 #include "gameinteract.h"
 #include "character.h"
+#include "enemyabstract.h"
 
 class GameObject;
 
@@ -18,8 +19,7 @@ public:
     Player(Point2D coords, size_t health, sInteractStrategy strategy);
     std::ostream& operator<<(std::ostream &out);
     void operator+=(sGameObject &right);
-
-    std::string toString();
+    void operator+=(sEnemyAbstract &right);
 
     void setStrategy(sInteractStrategy strategy);
 };

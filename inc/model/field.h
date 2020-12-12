@@ -16,7 +16,7 @@ class Field {
 public:
     Field(GameField &f);
 
-    CELL_TYPE getType(Point2D coords);
+    CellType getType(Point2D coords);
     sGameObject& getObject(Point2D coords);
     int getHeight();
     int getWidth();

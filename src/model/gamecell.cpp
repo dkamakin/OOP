@@ -1,8 +1,8 @@
 #include "model/gamecell.h"
 
-GameCell::GameCell(CELL_TYPE type, Point2D coords, sGameObject object) : type_(type), coords_(coords), object_(object) {}
+GameCell::GameCell(CellType type, Point2D coords, sGameObject object) : type_(type), coords_(coords), object_(object) {}
 
-void GameCell::setType(CELL_TYPE type) {
+void GameCell::setType(CellType type) {
     type_ = type;
 }
 
@@ -10,7 +10,7 @@ sGameObject& GameCell::getObject() {
     return object_;
 }
 
-CELL_TYPE GameCell::getType() {
+CellType GameCell::getType() {
     return type_;
 }
 

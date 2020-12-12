@@ -8,15 +8,16 @@
 #include "objectmapper.h"
 
 using sQGraphicsScene = std::shared_ptr <QGraphicsScene>;
-using sLevelMapper = std::shared_ptr <class LevelMapper>;
 using sQGraphicsRectItem = std::shared_ptr <QGraphicsRectItem>;
 using ssQGraphicsRectItem = std::shared_ptr <sQGraphicsRectItem>;
 using sssQGraphicsRectItem = std::shared_ptr <ssQGraphicsRectItem>;
 using sQGraphicsTextItem = std::shared_ptr <QGraphicsTextItem>;
+using sQGraphicsTextItem = std::shared_ptr <QGraphicsTextItem>;
+using sLevelMapper = std::shared_ptr <class LevelMapper>;
 
 class LevelMapper {
     sObjectMapper objectMapper_;
-    QGraphicsTextItem *playerInfo_;
+    sQGraphicsTextItem playerInfo_;
     sssQGraphicsRectItem cells_;
     int cellWidth_;
     int cellHeight_;

@@ -10,20 +10,20 @@ using sCell = std::shared_ptr <class Cell>;
 using ssCell = std::shared_ptr <sCell>;
 
 class Cell {
-    CELL_TYPE type_;
+    CellType type_;
     Point2D coords_;
     sGameObject object_;
 
 public:
     Cell() = default;
-    Cell(CELL_TYPE type, Point2D coords, sGameObject object);
+    Cell(CellType type, Point2D coords, sGameObject object);
 
     Point2D getCoords();
-    CELL_TYPE getType();
+    CellType getType();
     sGameObject getObject();
 
     void setCoords(Point2D coords);
-    void setType(CELL_TYPE type);
+    void setType(CellType type);
     void setObject(sGameObject object);
 };
 

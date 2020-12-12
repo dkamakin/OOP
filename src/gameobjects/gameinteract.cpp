@@ -6,7 +6,6 @@ void GameInteract::interact(Character &character, sGameObject &object) {
 
     object->action(character);
 
-    if (object->isDisposable()) {
+    if (object->isDisposable())
         object = nullptr;
-    }
 }

@@ -12,14 +12,17 @@ class Character {
     size_t points_;
     size_t health_;
     Point2D coords_;
+    Direction direction_;
     bool end_;
     bool healthDebuff_;
 
 public:
     Character() = default;
 
-    void move(DIRECTION direction);
+    void move(Direction direction);
 
+    Direction getDirection();
+    std::string toString();
     Point2D getCoords();
     size_t getHealth();
     size_t getPoints();
@@ -28,6 +31,7 @@ public:
 
     void setCoords(Point2D coords);
     void setHealth(size_t heath);
+    void setDirection(Direction direction);
     void setPoints(size_t points);
     void addPoints(size_t points);
     void setEnd(bool value);

@@ -58,6 +58,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
         command->execute();
 
         auto reply = askQuestion("The game is over", "Would you like to restart?");
+        
         if (reply == QMessageBox::Yes)
             command = sNewGameCommand(new NewGameCommand(controller_));
         else

@@ -1,11 +1,11 @@
 #ifndef DIRECTION_H
 #define DIRECTION_H
 
-enum DIRECTION {
-    UP,
-    LEFT,
-    DOWN,
-    RIGHT
+enum Direction {
+    Up,
+    Left,
+    Down,
+    Right
 };
 
 #endif // DIRECTION_H

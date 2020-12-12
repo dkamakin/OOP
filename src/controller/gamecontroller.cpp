@@ -1,46 +1,40 @@
 #include "controller/gamecontroller.h"
 
-GameController::GameController(sField object, sPlayer player) : field_(object), player_(player), moveCount_(0) {
+GameController::GameController(sField object, sControllerState state) :
+    field_(object), state_(state) {
+
     auto &logger = LoggerContext::getInstance();
     logger.subscribe(new FileLogger("logs.txt"));
     logger.subscribe(new ConsoleLogger(std::cout));
 }
 
-GameController::~GameController() {
-    LoggerContext::deleteInstance();
+void GameController::move(Direction direction) {
+    state_->moveCharacter(*this, direction);
 }
 
-Point2D GameController::getPlayerCoords() {
-    return player_->getCoords();
+void GameController::playerAttack() {
+    state_->playerInteract(*this);
 }
 
-std::string GameController::getPlayerInfo() {
-    return player_->toString();
+void GameController::startTurn() {
+    state_->startTurn(*this);
 }
 
-size_t GameController::getPoints() {
-    return player_->getPoints();
-}
-
-sField GameController::getField() {
-    return field_;
+void GameController::setTurn(sControllerState state) {
+    state_ = state;
 }
 
 void GameController::newGame() {
     field_->makeMap();
     player_ = sPlayer(new Player(Point2D(1, 1), 100, sGameInteract(new GameInteract)));
-    enemies_.push_back(sEnemyAbstract(new Enemy<TheftTemplate>(Point2D(1, 4))));
-    enemies_.push_back(sEnemyAbstract(new Enemy<AttackTemplate>(Point2D(4, 7))));
-    enemies_.push_back(sEnemyAbstract(new Enemy<DebuffTemplate>(Point2D(10, 1))));
-}
-
-std::vector<sEnemyAbstract>& GameController::getEnemies() {
-    return enemies_;
+    enemies_.push_back(sEnemyAbstract(new Enemy<TheftTemplate>(Point2D(1, 4), 100)));
+    enemies_.push_back(sEnemyAbstract(new Enemy<AttackTemplate>(Point2D(4, 7), 100)));
+    enemies_.push_back(sEnemyAbstract(new Enemy<DebuffTemplate>(Point2D(10, 1), 100)));
 }
 
 void GameController::endGame() {
     player_ = nullptr;
-    field_->deleteField();
+    enemies_.clear();
 }
 
 bool GameController::isEnd() {
@@ -49,8 +43,12 @@ bool GameController::isEnd() {
     return player_->getEnd();
 }
 
-CELL_TYPE GameController::getType(Point2D &coords) {
+CellType GameController::getType(Point2D &coords) {
     return field_->getType(coords);
+}
+
+sPlayer& GameController::getPlayer() {
+    return player_;
 }
 
 size_t GameController::getPlayerHealth() {
@@ -73,31 +71,26 @@ sEnemyAbstract GameController::getEnemy(Point2D coords) {
     return nullptr;
 }
 
-void GameController::movePlayer(DIRECTION direction) {
-    LoggerContext::getInstance() << "[Move #" << std::to_string(++moveCount_) << "]\n";
-    auto oldCoords = getPlayerCoords();
+GameController::~GameController() {
+    LoggerContext::deleteInstance();
+}
 
-    player_->move(direction);
+std::list<sEnemyAbstract>& GameController::getEnemies() {
+    return enemies_;
+}
 
-    auto &object = field_->getObject(getPlayerCoords());
-    LoggerContext::getInstance() << (object ? "Object: " + object->toString() : "Object: null") << "\n";
+Point2D GameController::getPlayerCoords() {
+    return player_->getCoords();
+}
 
-    *player_ += object;
+std::string GameController::getPlayerInfo() {
+    return player_->toString();
+}
 
-    if (isEnemy(getPlayerCoords())) {
-        LoggerContext::getInstance() << player_->toString() << "\n\n";
-        LoggerContext::getInstance() << "Interacting with the enemy" << "\n\n";
-        getEnemy(getPlayerCoords())->interact(*player_.get());
-        player_->setCoords(oldCoords);
-        return;
-    }
+size_t GameController::getPoints() {
+    return player_->getPoints();
+}
 
-    if (field_->getType(getPlayerCoords()) == WALL) {
-        LoggerContext::getInstance() << player_->toString() << "\n\n";
-        LoggerContext::getInstance() << "Wrong direction" << "\n\n";
-        player_->setCoords(oldCoords);
-        return;
-    }
-
-    LoggerContext::getInstance() << player_->toString() << "\n\n";
+sField GameController::getField() {
+    return field_;
 }

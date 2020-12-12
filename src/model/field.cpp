@@ -2,7 +2,7 @@
 
 Field::Field(GameField &field) : field_(field) {}
 
-CELL_TYPE Field::getType(Point2D coords) {
+CellType Field::getType(Point2D coords) {
     return field_.getType(coords);
 }
 
@@ -44,11 +44,11 @@ void Field::makeMap() {
 
     for (auto y = 0; y < height; y++)
         for (auto x = 0; x < width; x++) {
-            auto type = static_cast<CELL_TYPE>(array[y][x]);
+            auto type = static_cast<CellType>(array[y][x]);
             field_.setCell(Point2D(x, y), GameCell(type, Point2D(x, y), nullptr));
         }
 
-    field_.getCell(Point2D(1, 1)).setType(ENTER);
+    field_.getCell(Point2D(1, 1)).setType(Enter);
     field_.getCell(Point2D(3, 2)).setObject(coinFactory->createObject());
     field_.getCell(Point2D(10, 7)).setObject(coinFactory->createObject());
     field_.getCell(Point2D(13, 13)).setObject(exitFactory->createObject());

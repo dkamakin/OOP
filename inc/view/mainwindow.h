@@ -4,13 +4,12 @@
 #include <QMainWindow>
 #include <QDesktopWidget>
 #include <QKeyEvent>
-#include <QGraphicsScene>
-#include <QGraphicsRectItem>
 #include <QMessageBox>
 #include "controller/gamecontroller.h"
 #include "controller/movecommand.h"
 #include "controller/newgamecommand.h"
 #include "controller/endgamecommand.h"
+#include "controller/attackcommand.h"
 #include "objectmapper.h"
 #include "levelmapper.h"
 
