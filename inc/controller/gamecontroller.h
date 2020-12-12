@@ -29,6 +29,8 @@ public:
 
     void newGame();
     void endGame();
+    void saveGame();
+    void loadGame();
     void playerAttack();
 
     void setTurn(sControllerState state);

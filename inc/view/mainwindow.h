@@ -10,6 +10,8 @@
 #include "controller/newgamecommand.h"
 #include "controller/endgamecommand.h"
 #include "controller/attackcommand.h"
+#include "controller/savecommand.h"
+#include "controller/loadcommand.h"
 #include "objectmapper.h"
 #include "levelmapper.h"
 

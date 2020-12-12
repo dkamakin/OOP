@@ -46,8 +46,12 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
             command = sAttackCommand(new AttackCommand(controller_));
             break;
         case Qt::Key_F10:
+            QMessageBox::information(this, "Load", "Loading the game");
+            command = sLoadCommand(new LoadCommand(controller_));
             break;
         case Qt::Key_F11:
+            QMessageBox::information(this, "Save", "Saving the game");
+            command = sSaveCommand(new SaveCommand(controller_));
             break;
         default:
             return;
