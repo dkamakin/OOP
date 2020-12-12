@@ -25,7 +25,7 @@ void LoggerContext::unsubscribe(Logger *logger) {
 }
 
 void LoggerContext::log(const std::string &info) {
-    for (auto &listener : listeners_)
+    for (const auto &listener : listeners_)
         listener->log(info);
 }
 

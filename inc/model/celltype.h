@@ -5,7 +5,6 @@ enum CellType {
     Empty,
     Wall,
     Enter,
-    Exit,
 };
 
 #endif // CELLTYPE_H

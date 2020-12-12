@@ -23,11 +23,14 @@ void LevelMapper::initScene(sQGraphicsScene &scene, const sGameController &contr
 
     for (auto y = 0; y < height; y++) {
         cells_.get()[y] = ssQGraphicsRectItem(new sQGraphicsRectItem[height], std::default_delete<sQGraphicsRectItem[]>());
+
         for (auto x = 0; x < width; x++) {
-            cells_.get()[y].get()[x] = sQGraphicsRectItem(new QGraphicsRectItem(x * cellWidth_, y * cellHeight_,
-                                            cellWidth_, cellHeight_, nullptr));
+            cells_.get()[y].get()[x] = sQGraphicsRectItem(new QGraphicsRectItem(
+                                                              x * cellWidth_, y * cellHeight_, cellWidth_, cellHeight_, nullptr)
+                                                          );
             scene->addItem(cells_.get()[y].get()[x].get());
         }
+
     }
 
     scene->addItem(playerInfo_.get());

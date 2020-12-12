@@ -46,7 +46,7 @@ Point2D& operator-=(Point2D &left, const Point2D &right) {
 }
 
 std::string Point2D::toString() {
-    return "(" + std::to_string(x_) + "," + std::to_string(y_) + ")";
+    return '(' + std::to_string(x_) + ',' + std::to_string(y_) + ')';
 }
 
 int Point2D::getX() {

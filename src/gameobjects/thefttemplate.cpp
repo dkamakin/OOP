@@ -1,4 +1,4 @@
-#include "inc/gameobjects/thefttemplate.h"
+#include "gameobjects/thefttemplate.h"
 
 void TheftTemplate::interact(Player &player) {
     player.decPoints(1);

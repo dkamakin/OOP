@@ -1,4 +1,4 @@
-#include "inc/controller/attackcommand.h"
+#include "controller/attackcommand.h"
 
 AttackCommand::AttackCommand(sGameController controller) : Command(controller) {}
 

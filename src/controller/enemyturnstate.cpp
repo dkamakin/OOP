@@ -1,4 +1,4 @@
-#include "inc/controller/enemyturnstate.h"
+#include "controller/enemyturnstate.h"
 
 void EnemyTurnState::startTurn(GameController& controller) {
     auto enemies = controller.getEnemies();

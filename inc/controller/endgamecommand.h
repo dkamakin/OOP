@@ -1,7 +1,7 @@
 #ifndef ENDGAMECOMMAND_H
 #define ENDGAMECOMMAND_H
 
-#include "controller/command.h"
+#include "command.h"
 
 using sEndGameCommand = std::shared_ptr <class EndGameCommand>;
 

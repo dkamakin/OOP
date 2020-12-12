@@ -1,4 +1,4 @@
-#include "inc/controller/playerturnstate.h"
+#include "controller/playerturnstate.h"
 
 void PlayerTurnState::moveCharacter(GameController& controller, Direction direction) {
     LoggerContext::getInstance() << "[Move]" << "\n";

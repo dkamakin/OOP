@@ -1,5 +1,4 @@
 #include "view/mainwindow.h"
-#include <QLabel>
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -46,12 +45,18 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
         case Qt::Key_V:
             command = sAttackCommand(new AttackCommand(controller_));
             break;
+        case Qt::Key_F10:
+            break;
+        case Qt::Key_F11:
+            break;
         default:
             return;
     }
 
-    command->execute();
-    mapper_->updateScene(controller_);
+    if (command) {
+        command->execute();
+        mapper_->updateScene(controller_);
+    }
 
     if (controller_->isEnd()) {
         command = sEndGameCommand(new EndGameCommand(controller_));

@@ -17,13 +17,13 @@ public:
     void move(Direction direction);
     void setX(int value);
     void setY(int value);
-    std::string toString();
 
     friend const Point2D operator+(const Point2D &left, const Point2D &right);
     friend Point2D& operator+=(Point2D &left, const Point2D &right);
     friend Point2D& operator-=(Point2D &left, const Point2D &right);
     bool operator==(const Point2D &other);
     bool operator!=(const Point2D &other);
+    std::string toString();
 };
 
 #endif // POINT2D_H

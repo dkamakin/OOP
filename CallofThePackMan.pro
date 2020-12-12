@@ -6,6 +6,8 @@ CONFIG += c++11
 INCLUDEPATH += $$PWD/inc
 
 SOURCES += \
+    src/controller/loadcommand.cpp \
+    src/controller/savecommand.cpp \
     src/controller/attackcommand.cpp \
     src/controller/enemyturnstate.cpp \
     src/controller/playerturnstate.cpp \
@@ -82,7 +84,9 @@ HEADERS += \
     inc/gameobjects/thefttemplate.h \
     inc/view/objectmapper.h \
     inc/view/levelmapper.h \
-    inc/controller/playerturnstate.h
+    inc/controller/playerturnstate.h \
+    inc/controller/loadcommand.h \
+    inc/controller/savecommand.h
 
 FORMS += \
     inc/view/mainwindow.ui

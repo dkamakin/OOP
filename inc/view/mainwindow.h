@@ -29,8 +29,6 @@ class MainWindow : public QMainWindow {
     sMainWindowUi ui_;
 
     sGameController controller_;
-    sNewGameCommand newGame_;
-    sEndGameCommand endGame_;
     sQGraphicsScene scene_;
     sLevelMapper mapper_;
 
