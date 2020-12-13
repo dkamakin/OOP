@@ -1,6 +1,7 @@
 #ifndef GAMECONTROLLER_H
 #define GAMECONTROLLER_H
 
+#include <list>
 #include "model/field.h"
 #include "gameobjects/player.h"
 #include "logger/loggercontext.h"
@@ -12,10 +13,9 @@
 #include "controllerstate.h"
 #include "playerturnstate.h"
 #include "enemyturnstate.h"
-#include <list>
 
 using sGameController = std::shared_ptr <class GameController>;
-using listEnemies = std::list<sEnemyAbstract>;
+using listEnemies = std::list <sEnemyAbstract>;
 
 class GameController {
     sField field_;
@@ -29,8 +29,6 @@ public:
 
     void newGame();
     void endGame();
-    void saveGame();
-    void loadGame();
     void playerAttack();
 
     void setTurn(sControllerState state);

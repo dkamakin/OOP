@@ -14,6 +14,10 @@ public:
         setHealth(health);
     }
 
+    Enemy(Character character) : template_(sEnemyTemplate(new EnemyTemplate)) {
+        *this = character;
+    }
+
     const std::type_info& getTypeInfo() override {
         return typeid(Enemy<EnemyTemplate>);
     }

@@ -24,26 +24,6 @@ void GameController::setTurn(sControllerState state) {
     state_ = state;
 }
 
-void GameController::saveGame() {
-    std::ofstream file("../save.oop");
-
-    if (!file.is_open())
-        return;
-
-    file.write((char*)&*player_.get(), sizeof(Player));
-    file.close();
-}
-
-void GameController::loadGame() {
-    std::ifstream file("../save.oop");
-
-    if (!file.is_open())
-        return;
-
-    file.read((char*)&*player_.get(), sizeof(Player));
-    file.close();
-}
-
 void GameController::newGame() {
     field_->makeMap();
     player_ = sPlayer(new Player(Point2D(1, 1), 100, sGameInteract(new GameInteract)));

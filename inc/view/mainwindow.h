@@ -10,8 +10,7 @@
 #include "controller/newgamecommand.h"
 #include "controller/endgamecommand.h"
 #include "controller/attackcommand.h"
-#include "controller/savecommand.h"
-#include "controller/loadcommand.h"
+#include "controller/archive.h"
 #include "objectmapper.h"
 #include "levelmapper.h"
 
@@ -33,6 +32,7 @@ class MainWindow : public QMainWindow {
     sGameController controller_;
     sQGraphicsScene scene_;
     sLevelMapper mapper_;
+    sArchive archive_;
 
 public:
     MainWindow(QWidget *parent = nullptr);

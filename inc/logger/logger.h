@@ -1,7 +1,7 @@
 #ifndef LOGGER_H
 #define LOGGER_H
 
-#include <iostream>
+#include <string>
 #include "loggerbridge.h"
 
 using sLogger = std::shared_ptr <class Logger>;

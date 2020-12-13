@@ -1,7 +1,6 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
 
-#include <cstdlib>
 #include <memory>
 #include "utilities/point2d.h"
 #include "controller/direction.h"
