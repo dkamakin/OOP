@@ -47,6 +47,8 @@ public:
 
     bool isEnemy(Point2D coords);
     bool isEnd();
+
+    void setEnemies(listEnemies enemies);
 };
 
 #endif // GAMECONTROLLER_H

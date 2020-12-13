@@ -58,10 +58,8 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
             return;
     }
 
-    if (command) {
+    if (command)
         command->execute();
-        mapper_->updateScene(controller_);
-    }
 
     if (controller_->isEnd()) {
         command = sEndGameCommand(new EndGameCommand(controller_));
@@ -76,6 +74,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
         command->execute();
     }
 
+    mapper_->updateScene(controller_);
 }
 
 QMessageBox::StandardButton MainWindow::askQuestion(std::string top, std::string bottom) {

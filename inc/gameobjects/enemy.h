@@ -15,7 +15,8 @@ public:
     }
 
     Enemy(Character character) : template_(sEnemyTemplate(new EnemyTemplate)) {
-        *this = character;
+        setCoords(character.getCoords());
+        setHealth(character.getHealth());
     }
 
     const std::type_info& getTypeInfo() override {

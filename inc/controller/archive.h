@@ -3,6 +3,11 @@
 
 #include "gamecontroller.h"
 
+#define PLAYER 'P'
+#define ATTACK 'A'
+#define DEBUFF 'D'
+#define THEFT 'T'
+
 using sArchive = std::shared_ptr <class Archive>;
 
 class Archive {
@@ -16,7 +21,11 @@ public:
     void load(std::string fileName);
 
 private:
-    void readPlayer(Player &player);
+    void savePlayer(Player player);
+    void saveEnemy(sEnemyAbstract enemy);
+
+    Character loadCharacter();
+    void loadPlayer(Player &player);
 };
 
 #endif // ARCHIVE_H

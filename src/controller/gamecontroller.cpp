@@ -94,3 +94,7 @@ size_t GameController::getPoints() {
 sField GameController::getField() {
     return field_;
 }
+
+void GameController::setEnemies(listEnemies enemies) {
+    enemies_ = enemies;
+}
