@@ -22,11 +22,14 @@ void Archive::load(std::string fileName) {
     if (!input_.is_open())
         return;
 
-
     char symbol;
+
     while (input_.read(&symbol, 1)) {
         if (symbol == 'p') {
             readPlayer(*controller_->getPlayer().get());
+        } else {
+            std::cerr << "The file is wrong!" << '\n';
+            return;
         }
     }
 
