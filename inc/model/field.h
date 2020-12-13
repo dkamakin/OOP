@@ -4,8 +4,8 @@
 #include <memory>
 #include "gamefield.h"
 #include "cell.h"
-#include "gameobjects/coinobjectfactory.h"
-#include "gameobjects/exitobjectfactory.h"
+#include "gameobjects/coin/coinobjectfactory.h"
+#include "gameobjects/exit/exitobjectfactory.h"
 
 using sField = std::shared_ptr <class Field>;
 

@@ -4,8 +4,8 @@
 #include <memory>
 #include "utilities/point2d.h"
 #include "gameobjects/gameobject.h"
-#include "gameobjects/coinobject.h"
-#include "gameobjects/exitobject.h"
+#include "gameobjects/coin/coinobject.h"
+#include "gameobjects/exit/exitobject.h"
 #include "celltype.h"
 
 using sGameCell = std::shared_ptr <class GameCell>;

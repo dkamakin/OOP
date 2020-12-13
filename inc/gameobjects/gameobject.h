@@ -1,7 +1,7 @@
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
 
-#include "character.h"
+#include "characters/character.h"
 
 class Player;
 

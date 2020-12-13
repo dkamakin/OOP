@@ -6,10 +6,10 @@
 #include <QKeyEvent>
 #include <QMessageBox>
 #include "controller/gamecontroller.h"
-#include "controller/movecommand.h"
-#include "controller/newgamecommand.h"
-#include "controller/endgamecommand.h"
-#include "controller/attackcommand.h"
+#include "controller/commands/movecommand.h"
+#include "controller/commands/newgamecommand.h"
+#include "controller/commands/endgamecommand.h"
+#include "controller/commands/attackcommand.h"
 #include "controller/archive.h"
 #include "objectmapper.h"
 #include "levelmapper.h"

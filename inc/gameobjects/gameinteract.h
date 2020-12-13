@@ -1,7 +1,7 @@
 #ifndef GAMEINTERACT_H
 #define GAMEINTERACT_H
 
-#include "interactstrategy.h"
+#include "characters/interactstrategy.h"
 
 using sGameInteract = std::shared_ptr <class GameInteract>;
 

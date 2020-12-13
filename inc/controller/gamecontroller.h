@@ -3,16 +3,16 @@
 
 #include <list>
 #include "model/field.h"
-#include "gameobjects/player.h"
+#include "gameobjects/characters/player.h"
 #include "logger/loggercontext.h"
 #include "controller/direction.h"
-#include "gameobjects/enemy.h"
-#include "gameobjects/thefttemplate.h"
-#include "gameobjects/attacktemplate.h"
-#include "gameobjects/debufftemplate.h"
-#include "controllerstate.h"
-#include "playerturnstate.h"
-#include "enemyturnstate.h"
+#include "gameobjects/characters/enemy.h"
+#include "gameobjects/characters/thefttemplate.h"
+#include "gameobjects/characters/attacktemplate.h"
+#include "gameobjects/characters/debufftemplate.h"
+#include "states/controllerstate.h"
+#include "states/playerturnstate.h"
+#include "states/enemyturnstate.h"
 
 using sGameController = std::shared_ptr <class GameController>;
 using listEnemies = std::list <sEnemyAbstract>;

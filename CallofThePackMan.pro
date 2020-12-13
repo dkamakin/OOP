@@ -6,85 +6,87 @@ CONFIG += c++11
 INCLUDEPATH += $$PWD/inc
 
 SOURCES += \
-    src/controller/archive.cpp \
-    src/controller/attackcommand.cpp \
-    src/controller/enemyturnstate.cpp \
-    src/controller/playerturnstate.cpp \
+    src/exceptions/archiveexception.cpp \
     src/view/levelmapper.cpp \
     src/view/objectmapper.cpp \
-    src/gameobjects/attacktemplate.cpp \
-    src/gameobjects/debufftemplate.cpp \
     src/logger/logger.cpp \
     src/logger/consoleloggerbridge.cpp \
     src/logger/fileloggerbridge.cpp \
-    src/controller/endgamecommand.cpp \
-    src/controller/newgamecommand.cpp \
-    src/controller/command.cpp \
-    src/controller/movecommand.cpp \
     src/logger/consolelogger.cpp \
     src/logger/filelogger.cpp \
     src/logger/loggercontext.cpp \
-    src/gameobjects/character.cpp \
-    src/gameobjects/gameinteract.cpp \
-    src/gameobjects/exitobject.cpp \
-    src/gameobjects/coinobject.cpp \
-    src/gameobjects/player.cpp \
-    src/gameobjects/coinobjectfactory.cpp \
-    src/gameobjects/exitobjectfactory.cpp \
+    src/controller/commands/endgamecommand.cpp \
+    src/controller/commands/newgamecommand.cpp \
+    src/controller/commands/command.cpp \
+    src/controller/commands/movecommand.cpp \
+    src/controller/archive.cpp \
+    src/controller/commands/attackcommand.cpp \
+    src/controller/states/enemyturnstate.cpp \
+    src/controller/states/playerturnstate.cpp \
     src/controller/gamecontroller.cpp \
+    src/gameobjects/characters/attacktemplate.cpp \
+    src/gameobjects/characters/debufftemplate.cpp \
+    src/gameobjects/characters/character.cpp \
+    src/gameobjects/gameinteract.cpp \
+    src/gameobjects/exit/exitobject.cpp \
+    src/gameobjects/coin/coinobject.cpp \
+    src/gameobjects/characters/player.cpp \
+    src/gameobjects/coin/coinobjectfactory.cpp \
+    src/gameobjects/exit/exitobjectfactory.cpp \
+    src/gameobjects/characters/thefttemplate.cpp \
     src/model/cell.cpp \
     src/model/field.cpp \
     src/model/gamecell.cpp \
     src/model/gamefield.cpp \
     src/main.cpp \
     src/view/mainwindow.cpp \
-    src/utilities/point2d.cpp \
-    src/gameobjects/thefttemplate.cpp
+    src/utilities/point2d.cpp
 
 HEADERS += \
+    inc/exceptions/archiveexception.h \
     inc/controller/archive.h \
-    inc/controller/attackcommand.h \
-    inc/controller/controllerstate.h \
-    inc/controller/enemyturnstate.h \
-    inc/gameobjects/enemyabstract.h \
-    inc/gameobjects/enemy.h \
-    inc/gameobjects/attacktemplate.h \
-    inc/gameobjects/debufftemplate.h \
-    inc/gameobjects/enemytemplate.h \
-    inc/logger/consoleloggerbridge.h \
-    inc/logger/fileloggerbridge.h \
+    inc/controller/commands/attackcommand.h \
+    inc/controller/states/controllerstate.h \
+    inc/controller/states/enemyturnstate.h \
     inc/controller/direction.h \
-    inc/controller/endgamecommand.h \
-    inc/controller/command.h \
+    inc/controller/commands/movecommand.h \
+    inc/controller/commands/newgamecommand.h \
+    inc/controller/commands/endgamecommand.h \
+    inc/controller/states/playerturnstate.h \
+    inc/controller/commands/command.h \
+    inc/controller/gamecontroller.h \
     inc/logger/consolelogger.h \
     inc/logger/filelogger.h \
     inc/logger/logger.h \
+    inc/logger/loggerbridge.h \
     inc/logger/loggercontext.h \
+    inc/logger/consoleloggerbridge.h \
+    inc/logger/fileloggerbridge.h \
     inc/model/cell.h \
     inc/model/field.h \
     inc/model/celltype.h \
     inc/model/gamecell.h \
     inc/model/gamefield.h \
-    inc/gameobjects/character.h \
+    inc/gameobjects/characters/character.h \
+    inc/gameobjects/characters/enemyabstract.h \
+    inc/gameobjects/characters/enemy.h \
+    inc/gameobjects/characters/attacktemplate.h \
+    inc/gameobjects/characters/debufftemplate.h \
+    inc/gameobjects/characters/enemytemplate.h \
     inc/gameobjects/gameinteract.h \
-    inc/gameobjects/exitobject.h \
-    inc/gameobjects/coinobject.h \
+    inc/gameobjects/exit/exitobject.h \
+    inc/gameobjects/coin/coinobject.h \
     inc/gameobjects/gameobject.h \
-    inc/gameobjects/player.h \
-    inc/gameobjects/coinobjectfactory.h \
-    inc/gameobjects/exitobjectfactory.h \
+    inc/gameobjects/characters/player.h \
+    inc/gameobjects/coin/coinobjectfactory.h \
+    inc/gameobjects/exit/exitobjectfactory.h \
     inc/gameobjects/gameobjectfactory.h \
-    inc/gameobjects/interactstrategy.h \
-    inc/controller/gamecontroller.h \
-    inc/view/mainwindow.h \
+    inc/gameobjects/characters/interactstrategy.h \
+    inc/gameobjects/characters/thefttemplate.h \
     inc/utilities/point2d.h \
-    inc/controller/movecommand.h \
-    inc/controller/newgamecommand.h \
-    inc/logger/loggerbridge.h \
-    inc/gameobjects/thefttemplate.h \
     inc/view/objectmapper.h \
-    inc/view/levelmapper.h \
-    inc/controller/playerturnstate.h
+    inc/view/mainwindow.h \
+    inc/view/levelmapper.h
 
 FORMS += \
     inc/view/mainwindow.ui
