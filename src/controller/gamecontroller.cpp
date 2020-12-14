@@ -1,7 +1,7 @@
 #include "controller/gamecontroller.h"
 
 GameController::GameController(sField object, sControllerState state) :
-    field_(object), state_(state) {
+    field_(object), state_(state), level_(1) {
 
     auto &logger = LoggerContext::getInstance();
     logger.subscribe(new FileLogger("logs.txt"));
@@ -10,6 +10,14 @@ GameController::GameController(sField object, sControllerState state) :
 
 void GameController::move(Direction direction) {
     state_->moveCharacter(*this, direction);
+}
+
+void GameController::nextLevel() {
+    if (level_ == 2)
+        return;
+
+    level_++;
+    loadLevel();
 }
 
 void GameController::playerAttack() {
@@ -24,19 +32,23 @@ void GameController::setTurn(sControllerState state) {
     state_ = state;
 }
 
+bool GameController::isOver() {
+    return isEnd() && level_ == 2;
+}
+
 void GameController::newGame() {
-    field_->makeMap();
+    Loader loader;
+    level_ = 1;
     player_ = sPlayer(new Player(Point2D(1, 1), 100, sGameInteract(new GameInteract)));
-    enemies_.push_back(sEnemyAbstract(new Enemy<TheftTemplate>(Point2D(1, 4), 100)));
-    enemies_.push_back(sEnemyAbstract(new Enemy<AttackTemplate>(Point2D(4, 7), 100)));
-    enemies_.push_back(sEnemyAbstract(new Enemy<DebuffTemplate>(Point2D(10, 1), 100)));
+    field_->makeMap();
+    loadLevel();
 }
 
 void GameController::loadGame() {
     Loader loader;
 
     try {
-        loader.execute("../save.oop", player_, enemies_);
+        loader.execute(QUICK_FILE, player_, enemies_, level_);
     } catch (ArchiveException &e) {
         LoggerContext::getInstance() << e.getMessage() << "\n";
     } catch (...) {
@@ -48,11 +60,22 @@ void GameController::saveGame() {
     Saver saver;
 
     try {
-        saver.execute("../save.oop", player_, enemies_);
+        saver.execute(QUICK_FILE, player_, enemies_, level_);
     } catch (ArchiveException &e) {
         LoggerContext::getInstance() << e.getMessage() << "\n";
     } catch (...) {
         LoggerContext::getInstance() << "Unkown error while saving" << "\n";
+    }
+}
+
+void GameController::loadLevel() {
+    Loader loader;
+    try {
+        loader.execute(LEVEL + std::to_string(level_) + ".oop", player_, enemies_, level_);
+    } catch (ArchiveException &e) {
+        LoggerContext::getInstance() << e.getMessage() << "\n";
+    } catch (...) {
+        LoggerContext::getInstance() << "Unkown error while loading" << "\n";
     }
 }
 

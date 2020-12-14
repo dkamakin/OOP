@@ -19,12 +19,12 @@ MainWindow::MainWindow(QWidget *parent)
     command->execute();
 
     mapper_->initScene(scene_, controller_);
-    mapper_->updateScene(controller_);
+    mapper_->updateScene(controller_, scene_);
     ui_->view->setScene(scene_.get());
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event) {
-    if (controller_->isEnd())
+    if (controller_->isOver())
         return;
 
     sCommand command = nullptr;
@@ -52,37 +52,33 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
     if (command)
         command->execute();
 
-    if (controller_->isEnd()) {
-        command = sEndGameCommand(new EndGameCommand(controller_));
+    if (controller_->isEnd() && !controller_->isOver()) {
+        QMessageBox::information(this, "Going deeper", "Going to the next level");
+        command = sNextLevelCommand(new NextLevelCommand(controller_));
         command->execute();
-
-        auto reply = askQuestion("The game is over", "Would you like to restart?");
-        if (reply == QMessageBox::Yes)
-            command = sNewGameCommand(new NewGameCommand(controller_));
-        else
-            return;
-
-        command->execute();
+        mapper_->resize(GameField::getInstance().getSize(), scene_);
     }
 
-    mapper_->updateScene(controller_);
-}
+    if (controller_->isOver()) {
+        QMessageBox::information(nullptr, "The end", "The game is over, you won a beer!");
+        command = sEndGameCommand(new EndGameCommand(controller_));
+        command->execute();
+        return;
+    }
 
-QMessageBox::StandardButton MainWindow::askQuestion(std::string top, std::string bottom) {
-    return QMessageBox::question(this, QString::fromStdString(top), QString::fromStdString(bottom),
-                                 QMessageBox::Yes | QMessageBox::No);
+    mapper_->updateScene(controller_, scene_);
 }
 
 void MainWindow::on_quickLoad_triggered() {
     sCommand command = sLoadCommand(new LoadCommand(controller_));
     command->execute();
-    mapper_->updateScene(controller_);
+    mapper_->updateScene(controller_, scene_);
 }
 
 void MainWindow::on_quickSave_triggered() {
     sCommand command = sSaveCommand(new SaveCommand(controller_));
     command->execute();
-    mapper_->updateScene(controller_);
+    mapper_->updateScene(controller_, scene_);
 }
 
 void MainWindow::on_actionAuthor_triggered() {

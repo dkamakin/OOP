@@ -12,6 +12,7 @@
 #include "controller/commands/attackcommand.h"
 #include "controller/commands/savecommand.h"
 #include "controller/commands/loadcommand.h"
+#include "controller/commands/nextlevelcommand.h"
 #include "objectmapper.h"
 #include "levelmapper.h"
 

@@ -16,6 +16,9 @@
 #include "states/playerturnstate.h"
 #include "states/enemyturnstate.h"
 
+#define LEVEL "../OOP/resources/level"
+#define QUICK_FILE "../save.oop"
+
 using sGameController = std::shared_ptr <class GameController>;
 using listEnemies = std::list <sEnemyAbstract>;
 
@@ -24,6 +27,7 @@ class GameController {
     sPlayer player_;
     sControllerState state_;
     listEnemies enemies_;
+    int level_;
 
 public:
     GameController(sField object, sControllerState state);
@@ -33,6 +37,8 @@ public:
     void endGame();
     void loadGame();
     void saveGame();
+    void nextLevel();
+    void loadLevel();
     void playerAttack();
 
     void setTurn(sControllerState state);
@@ -51,6 +57,7 @@ public:
 
     bool isEnemy(Point2D coords);
     bool isEnd();
+    bool isOver();
 
     void setEnemies(listEnemies enemies);
 };

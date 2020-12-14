@@ -4,8 +4,10 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
 INCLUDEPATH += $$PWD/inc
+OBJECTS_DIR = tmp/
 
 SOURCES += \
+    src/controller/commands/nextlevelcommand.cpp \
     src/controller/archive/cellmemento.cpp \
     src/exceptions/archiveexception.cpp \
     src/controller/commands/loadcommand.cpp \
@@ -101,7 +103,8 @@ HEADERS += \
     inc/controller/archive/loader.h \
     inc/controller/archive/saver.h \
     inc/controller/commands/loadcommand.h \
-    inc/controller/commands/savecommand.h
+    inc/controller/commands/savecommand.h \
+    inc/controller/commands/nextlevelcommand.h
 
 FORMS += \
     inc/view/mainwindow.ui

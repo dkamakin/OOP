@@ -19,6 +19,7 @@ class LevelMapper {
     sObjectMapper objectMapper_;
     sQGraphicsTextItem playerInfo_;
     sssQGraphicsRectItem cells_;
+    Size2D size_;
     int cellWidth_;
     int cellHeight_;
     double coefficient_;
@@ -26,7 +27,9 @@ class LevelMapper {
 public:
     LevelMapper(int width, int height, double coefficient);
     void initScene(sQGraphicsScene &scene, const sGameController &controller);
-    void updateScene(const sGameController &controller);
+    void updateScene(const sGameController &controller, sQGraphicsScene &scene);
+
+    void resize(Size2D size, sQGraphicsScene &scene);
 };
 
 #endif // LEVELMAPPER_H

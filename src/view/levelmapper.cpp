@@ -6,6 +6,7 @@ void LevelMapper::initScene(sQGraphicsScene &scene, const sGameController &contr
     auto field = controller->getField();
     auto width = field->getWidth();
     auto height = field->getHeight();
+    size_ = Size2D(height, width);
 
     cellWidth_ = (cellWidth_ / width) * coefficient_;
     cellHeight_ = (cellHeight_ / width) * coefficient_;
@@ -19,26 +20,32 @@ void LevelMapper::initScene(sQGraphicsScene &scene, const sGameController &contr
     playerInfo_->setDefaultTextColor(QColor(255, 255, 255));
 
     scene = sQGraphicsScene(new QGraphicsScene);
-    cells_ = sssQGraphicsRectItem(new ssQGraphicsRectItem[height], std::default_delete<ssQGraphicsRectItem[]>());
+    resize(Size2D(height, width), scene);
+    scene->addItem(playerInfo_.get());
+}
 
-    for (auto y = 0; y < height; y++) {
-        cells_.get()[y] = ssQGraphicsRectItem(new sQGraphicsRectItem[height], std::default_delete<sQGraphicsRectItem[]>());
+void LevelMapper::resize(Size2D size, sQGraphicsScene &scene) {
+    size_ = size;
+    cells_ = sssQGraphicsRectItem(new ssQGraphicsRectItem[size.getY()], std::default_delete<ssQGraphicsRectItem[]>());
 
-        for (auto x = 0; x < width; x++) {
+    for (auto y = 0; y < size.getY(); y++) {
+        cells_.get()[y] = ssQGraphicsRectItem(new sQGraphicsRectItem[size.getY()], std::default_delete<sQGraphicsRectItem[]>());
+
+        for (auto x = 0; x < size.getX(); x++) {
             cells_.get()[y].get()[x] = sQGraphicsRectItem(new QGraphicsRectItem(
                                                               x * cellWidth_, y * cellHeight_, cellWidth_, cellHeight_, nullptr)
                                                           );
             scene->addItem(cells_.get()[y].get()[x].get());
         }
-
     }
-
-    scene->addItem(playerInfo_.get());
 }
 
-
-void LevelMapper::updateScene(const sGameController &controller) {
+void LevelMapper::updateScene(const sGameController &controller, sQGraphicsScene &scene) {
     auto field = controller->getField();
+
+    if (size_ != field->getSize())
+        resize(field->getSize(), scene);
+
     auto playerCoords = controller->getPlayerCoords();
     auto enemies = controller->getEnemies();
 

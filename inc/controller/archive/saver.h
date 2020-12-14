@@ -13,11 +13,12 @@ class Saver {
 
 public:
     Saver() = default;
-    void execute(std::string fileName, sPlayer player, listEnemies &enemies);
+    void execute(std::string fileName, sPlayer player, listEnemies &enemies, int &level);
 
 private:
     void savePlayer(Player player);
     void saveField(GameField &field);
+    void saveLevel(int level);
     void saveEnemy(sEnemyAbstract enemy);
 };
 

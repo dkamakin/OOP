@@ -20,6 +20,7 @@ public:
     sGameObject& getObject(Point2D coords);
     int getHeight();
     int getWidth();
+    Size2D getSize();
 
     void makeMap();
     void deleteField();

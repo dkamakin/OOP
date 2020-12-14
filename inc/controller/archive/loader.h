@@ -13,7 +13,7 @@ class Loader {
 
 public:
     Loader() = default;
-    void execute(std::string fileName, sPlayer &player, listEnemies &enemies);
+    void execute(std::string fileName, sPlayer &player, listEnemies &enemies, int &level);
 
 private:
     EnemyMemento loadEnemy();

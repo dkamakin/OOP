@@ -1,6 +1,6 @@
 #include "controller/archive/loader.h"
 
-void Loader::execute(std::string fileName, sPlayer &player, listEnemies &enemies) {
+void Loader::execute(std::string fileName, sPlayer &player, listEnemies &enemies, int &level) {
     input_.open(fileName);
 
     if (!input_.is_open())
@@ -22,6 +22,8 @@ void Loader::execute(std::string fileName, sPlayer &player, listEnemies &enemies
         } if (symbol == FieldType) {
             loadField(fieldBackup);
             GameField::getInstance().restore(fieldBackup);
+        } if (symbol == LevelType) {
+            input_.read((char*)&level, sizeof(int));
         }
     }
 

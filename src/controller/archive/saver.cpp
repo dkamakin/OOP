@@ -1,6 +1,6 @@
 #include "controller/archive/saver.h"
 
-void Saver::execute(std::string fileName, sPlayer player, listEnemies &enemies) {
+void Saver::execute(std::string fileName, sPlayer player, listEnemies &enemies, int &level) {
     output_.open(fileName);
 
     if (!output_.is_open())
@@ -12,8 +12,15 @@ void Saver::execute(std::string fileName, sPlayer player, listEnemies &enemies) 
         saveEnemy(enemy);
 
     saveField(GameField::getInstance());
+    saveLevel(level);
 
     output_.close();
+}
+
+void Saver::saveLevel(int level) {
+    char symbol = LevelType;
+    output_.write((char*)&symbol, sizeof(char));
+    output_.write((char*)&level, sizeof(int));
 }
 
 void Saver::saveField(GameField &field) {
