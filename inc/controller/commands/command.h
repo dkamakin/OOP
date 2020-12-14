@@ -7,7 +7,7 @@ using sCommand = std::shared_ptr <class Command>;
 
 class Command {
 public:
-    Command(sGameController controller);
+    explicit Command(sGameController controller);
     virtual void execute() = 0;
     ~Command() = default;
 

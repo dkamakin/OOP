@@ -1,0 +1,11 @@
+#ifndef ARCHIVETYPES_H
+#define ARCHIVETYPES_H
+
+enum ArchiveTypes {
+    Hero = 'H',
+    Attack = 'A',
+    Debuff = 'D',
+    Theft = 'T'
+};
+
+#endif // ARCHIVETYPES_H

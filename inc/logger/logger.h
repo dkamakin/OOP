@@ -11,7 +11,7 @@ protected:
     sLoggerBridge bridge_;
 
 public:
-    Logger(sLoggerBridge bridge);
+    explicit Logger(sLoggerBridge bridge);
     virtual void log(const std::string &info) = 0;
     virtual ~Logger() = default;
 };

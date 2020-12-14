@@ -14,7 +14,7 @@ class Field {
     class Iterator;
 
 public:
-    Field(GameField &f);
+    explicit Field(GameField &f);
 
     CellType getType(Point2D coords);
     sGameObject& getObject(Point2D coords);

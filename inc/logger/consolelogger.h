@@ -10,7 +10,7 @@ class ConsoleLogger : public Logger {
     std::ostream &stream_;
 
 public:
-    ConsoleLogger(std::ostream &stream);
+    explicit ConsoleLogger(std::ostream &stream);
     void log(const std::string &info) override;
 };
 

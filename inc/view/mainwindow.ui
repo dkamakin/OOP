@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Beer?</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../../Resources.qrc">
+    <normaloff>:/resources/icon.png</normaloff>:/resources/icon.png</iconset>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_3">
     <item row="0" column="0">
@@ -35,6 +39,14 @@
     </property>
     <addaction name="actionAuthor"/>
    </widget>
+   <widget class="QMenu" name="menuArchive">
+    <property name="title">
+     <string>Archive</string>
+    </property>
+    <addaction name="quickSave"/>
+    <addaction name="quickLoad"/>
+   </widget>
+   <addaction name="menuArchive"/>
    <addaction name="menuAbout"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -43,7 +55,25 @@
     <string>Author</string>
    </property>
   </action>
+  <action name="quickSave">
+   <property name="text">
+    <string>Quick save</string>
+   </property>
+   <property name="shortcut">
+    <string>F11</string>
+   </property>
+  </action>
+  <action name="quickLoad">
+   <property name="text">
+    <string>Quick load</string>
+   </property>
+   <property name="shortcut">
+    <string>F10</string>
+   </property>
+  </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../Resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

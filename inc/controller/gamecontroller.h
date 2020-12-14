@@ -2,6 +2,7 @@
 #define GAMECONTROLLER_H
 
 #include <list>
+#include <exception>
 #include "model/field.h"
 #include "gameobjects/characters/player.h"
 #include "logger/loggercontext.h"
@@ -10,7 +11,10 @@
 #include "gameobjects/characters/thefttemplate.h"
 #include "gameobjects/characters/attacktemplate.h"
 #include "gameobjects/characters/debufftemplate.h"
+#include "archive/saver.h"
+#include "archive/loader.h"
 #include "states/controllerstate.h"
+#include "exceptions/archiveexception.h"
 #include "states/playerturnstate.h"
 #include "states/enemyturnstate.h"
 
@@ -29,6 +33,8 @@ public:
 
     void newGame();
     void endGame();
+    void loadGame();
+    void saveGame();
     void playerAttack();
 
     void setTurn(sControllerState state);

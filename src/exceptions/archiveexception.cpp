@@ -1,6 +1,7 @@
 #include "exceptions/archiveexception.h"
 
-ArchiveException::ArchiveException()
-{
+ArchiveException::ArchiveException(std::string msg) : msg_(msg) {}
 
+std::string ArchiveException::getMessage() {
+    return msg_;
 }

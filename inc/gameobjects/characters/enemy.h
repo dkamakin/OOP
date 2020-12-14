@@ -3,6 +3,7 @@
 
 #include "enemytemplate.h"
 #include "enemyabstract.h"
+#include "controller/archive/enemymemento.h"
 
 template <typename EnemyTemplate>
 class Enemy : public EnemyAbstract {
@@ -14,7 +15,7 @@ public:
         setHealth(health);
     }
 
-    Enemy(Character character) : template_(sEnemyTemplate(new EnemyTemplate)) {
+    explicit Enemy(Character character) : template_(sEnemyTemplate(new EnemyTemplate)) {
         setCoords(character.getCoords());
         setHealth(character.getHealth());
     }
@@ -25,6 +26,10 @@ public:
 
     void operator+=(Player &player) override {
         interact(player);
+    }
+
+    EnemyMemento save() {
+        return EnemyMemento(*this);
     }
 
     ~Enemy() = default;

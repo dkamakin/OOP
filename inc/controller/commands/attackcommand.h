@@ -7,7 +7,7 @@ using sAttackCommand = std::shared_ptr <class AttackCommand>;
 
 class AttackCommand : public Command {
 public:
-    AttackCommand(sGameController controller);
+    explicit AttackCommand(sGameController controller);
     void execute() override;
 };
 

@@ -14,7 +14,6 @@ MainWindow::MainWindow(QWidget *parent)
     mapper_ = sLevelMapper(new LevelMapper(screenSize_.width(), screenSize_.height(), FIELD_COEFFICIENT));
     controller_ = sGameController(new GameController(sField(new Field(GameField::getInstance())),
                                                     sControllerState(new PlayerTurnState)));
-    archive_ = sArchive(new Archive(controller_));
 
     sNewGameCommand command(new NewGameCommand(controller_));
     command->execute();
@@ -46,14 +45,6 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
         case Qt::Key_V:
             command = sAttackCommand(new AttackCommand(controller_));
             break;
-        case Qt::Key_F10:
-            QMessageBox::information(this, "Load", "Loading the game");
-            archive_->load("../save.oop");
-            break;
-        case Qt::Key_F11:
-            QMessageBox::information(this, "Save", "Saving the game");
-            archive_->save("../save.oop");
-            break;
         default:
             return;
     }
@@ -82,6 +73,17 @@ QMessageBox::StandardButton MainWindow::askQuestion(std::string top, std::string
                                  QMessageBox::Yes | QMessageBox::No);
 }
 
+void MainWindow::on_quickLoad_triggered() {
+    sCommand command = sLoadCommand(new LoadCommand(controller_));
+    command->execute();
+    mapper_->updateScene(controller_);
+}
+
+void MainWindow::on_quickSave_triggered() {
+    sCommand command = sSaveCommand(new SaveCommand(controller_));
+    command->execute();
+    mapper_->updateScene(controller_);
+}
 
 void MainWindow::on_actionAuthor_triggered() {
     QMessageBox::information(this, "Author", "Made by Kamakin Daniil, 9381");

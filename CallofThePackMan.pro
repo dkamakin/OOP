@@ -7,6 +7,13 @@ INCLUDEPATH += $$PWD/inc
 
 SOURCES += \
     src/exceptions/archiveexception.cpp \
+    src/controller/commands/loadcommand.cpp \
+    src/controller/commands/savecommand.cpp \
+    src/controller/archive/loader.cpp \
+    src/controller/archive/saver.cpp \
+    src/controller/archive/enemymemento.cpp \
+    src/controller/archive/fieldmemento.cpp \
+    src/controller/archive/playermemento.cpp \
     src/view/levelmapper.cpp \
     src/view/objectmapper.cpp \
     src/logger/logger.cpp \
@@ -19,7 +26,6 @@ SOURCES += \
     src/controller/commands/newgamecommand.cpp \
     src/controller/commands/command.cpp \
     src/controller/commands/movecommand.cpp \
-    src/controller/archive.cpp \
     src/controller/commands/attackcommand.cpp \
     src/controller/states/enemyturnstate.cpp \
     src/controller/states/playerturnstate.cpp \
@@ -44,7 +50,9 @@ SOURCES += \
 
 HEADERS += \
     inc/exceptions/archiveexception.h \
-    inc/controller/archive.h \
+    inc/controller/archive/archivetype.h \
+    inc/controller/archive/enemymemento.h \
+    inc/controller/archive/fieldmemento.h \
     inc/controller/commands/attackcommand.h \
     inc/controller/states/controllerstate.h \
     inc/controller/states/enemyturnstate.h \
@@ -86,7 +94,12 @@ HEADERS += \
     inc/utilities/point2d.h \
     inc/view/objectmapper.h \
     inc/view/mainwindow.h \
-    inc/view/levelmapper.h
+    inc/view/levelmapper.h \
+    inc/controller/archive/playermemento.h \
+    inc/controller/archive/loader.h \
+    inc/controller/archive/saver.h \
+    inc/controller/commands/loadcommand.h \
+    inc/controller/commands/savecommand.h
 
 FORMS += \
     inc/view/mainwindow.ui

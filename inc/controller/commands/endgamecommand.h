@@ -7,7 +7,7 @@ using sEndGameCommand = std::shared_ptr <class EndGameCommand>;
 
 class EndGameCommand : public Command {
 public:
-    EndGameCommand(sGameController controller);
+    explicit EndGameCommand(sGameController controller);
     void execute() override;
 };
 

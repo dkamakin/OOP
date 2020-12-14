@@ -9,6 +9,7 @@ class GameInteract : public InteractStrategy {
 public:
     GameInteract() = default;
     void interact(Character &character, sGameObject &object) override;
+    const std::type_info& getTypeInfo() override;
 };
 
 #endif // GAMEINTERACT_H

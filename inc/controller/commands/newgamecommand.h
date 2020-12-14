@@ -7,7 +7,7 @@ using sNewGameCommand = std::shared_ptr <class NewGameCommand>;
 
 class NewGameCommand : public Command {
 public:
-    NewGameCommand(sGameController controller);
+    explicit NewGameCommand(sGameController controller);
     void execute() override;
 };
 

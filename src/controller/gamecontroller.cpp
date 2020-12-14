@@ -32,6 +32,31 @@ void GameController::newGame() {
     enemies_.push_back(sEnemyAbstract(new Enemy<DebuffTemplate>(Point2D(10, 1), 100)));
 }
 
+void GameController::loadGame() {
+    Loader loader;
+
+    try {
+        loader.execute("../save.oop", player_, enemies_);
+    } catch (ArchiveException &e) {
+        LoggerContext::getInstance() << e.getMessage() << "\n";
+    } catch (...) {
+        LoggerContext::getInstance() << "Unkown error while loading\n";
+    }
+}
+
+void GameController::saveGame() {
+    Saver saver;
+
+    try {
+        saver.execute("../save.oop", player_, enemies_);
+    } catch (ArchiveException &e) {
+        LoggerContext::getInstance() << e.getMessage() << "\n";
+    } catch (...) {
+        LoggerContext::getInstance() << "Unkown error while saving\n";
+    }
+
+}
+
 void GameController::endGame() {
     player_ = nullptr;
     enemies_.clear();

@@ -10,7 +10,8 @@
 #include "controller/commands/newgamecommand.h"
 #include "controller/commands/endgamecommand.h"
 #include "controller/commands/attackcommand.h"
-#include "controller/archive.h"
+#include "controller/commands/savecommand.h"
+#include "controller/commands/loadcommand.h"
 #include "objectmapper.h"
 #include "levelmapper.h"
 
@@ -32,7 +33,6 @@ class MainWindow : public QMainWindow {
     sGameController controller_;
     sQGraphicsScene scene_;
     sLevelMapper mapper_;
-    sArchive archive_;
 
 public:
     MainWindow(QWidget *parent = nullptr);
@@ -40,6 +40,8 @@ public:
 
 private slots:
     void on_actionAuthor_triggered();
+    void on_quickSave_triggered();
+    void on_quickLoad_triggered();
 
 protected:
     void keyPressEvent(QKeyEvent *event);

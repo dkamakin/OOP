@@ -10,5 +10,6 @@
         <file>resources/enemyStatue.png</file>
         <file>resources/ghost.png</file>
         <file>resources/girl.png</file>
+        <file>resources/icon.png</file>
     </qresource>
 </RCC>
