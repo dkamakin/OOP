@@ -20,7 +20,7 @@ void Field::setObject(Point2D coords, sGameObject object) {
 
 void Field::makeMap() {
     auto height = 15, width = 15;
-    field_.setSize(height, width);
+    field_.setSize(Size2D(height, width));
     sExitObjectFactory exitFactory(new ExitObjectFactory);
     sCoinObjectFactory coinFactory(new CoinObjectFactory);
 

@@ -4,6 +4,8 @@
 #include <iostream>
 #include "controller/direction.h"
 
+using Size2D = class Point2D;
+
 class Point2D {
     int x_;
     int y_;

@@ -2,11 +2,9 @@
 #define GAMECONTROLLER_H
 
 #include <list>
-#include <exception>
 #include "model/field.h"
 #include "gameobjects/characters/player.h"
 #include "logger/loggercontext.h"
-#include "controller/direction.h"
 #include "gameobjects/characters/enemy.h"
 #include "gameobjects/characters/thefttemplate.h"
 #include "gameobjects/characters/attacktemplate.h"

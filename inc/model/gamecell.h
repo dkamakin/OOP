@@ -4,8 +4,9 @@
 #include <memory>
 #include "utilities/point2d.h"
 #include "gameobjects/gameobject.h"
-#include "gameobjects/coin/coinobject.h"
-#include "gameobjects/exit/exitobject.h"
+#include "gameobjects/coin/coinobjectfactory.h"
+#include "gameobjects/exit/exitobjectfactory.h"
+#include "controller/archive/cellmemento.h"
 #include "celltype.h"
 
 using sGameCell = std::shared_ptr <class GameCell>;
@@ -24,6 +25,9 @@ public:
     CellType getType();
     Point2D getCoords();
     sGameObject& getObject();
+
+    CellMemento save();
+    void restore(CellMemento &backup);
 
     void setType(CellType t);
     void setCoords(Point2D point);

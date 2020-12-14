@@ -9,11 +9,35 @@ GameField& GameField::getInstance() {
     return *uniqueInstance_;
 }
 
-GameField& GameField::getInstance(int rows, int cols) {
+GameField& GameField::getInstance(Size2D size) {
     if (!uniqueInstance_)
-        uniqueInstance_ = uGameField(new GameField(rows, cols));
+        uniqueInstance_ = uGameField(new GameField(size));
 
     return *uniqueInstance_;
+}
+
+FieldMemento GameField::save() {
+    vvCellMemento cells;
+    cells.resize(getHeight());
+
+    for (auto y = 0; y < getHeight(); y++) {
+        cells[y].resize(getWidth());
+        for (auto x = 0; x < getWidth(); x++)
+            cells[y][x] = field_.get()[y].get()[x].save();
+    }
+
+    return FieldMemento(size_, cells);
+}
+
+void GameField::restore(FieldMemento &backup) {
+    size_ = backup.getSize();
+    setSize(size_);
+    auto &field = backup.getField();
+
+    for (auto y = 0; y < getHeight(); y++) {
+        for (auto x = 0; x < getWidth(); x++)
+            field_.get()[y].get()[x].restore(field[y][x]);
+    }
 }
 
 void GameField::deleteInstance() {
@@ -24,19 +48,23 @@ GameField::GameField() {
     field_ = nullptr;
 }
 
-GameField::GameField(int rows, int cols) : height_(rows), width_(cols) {
-    field_ = ssGameCell(new sGameCell[height_], std::default_delete<sGameCell[]>());
+GameField::GameField(Size2D size) : size_(size) {
+    field_ = ssGameCell(new sGameCell[getHeight()], std::default_delete<sGameCell[]>());
 
-    for (auto y = 0; y < rows; y++)
-        field_.get()[y] = sGameCell(new GameCell[width_], std::default_delete<GameCell[]>());
+    for (auto y = 0; y < getHeight(); y++)
+        field_.get()[y] = sGameCell(new GameCell[getWidth()], std::default_delete<GameCell[]>());
 }
 
 int GameField::getHeight() {
-    return height_;
+    return size_.getX();
 }
 
 int GameField::getWidth() {
-    return width_;
+    return size_.getY();
+}
+
+Size2D GameField::getSize() {
+    return size_;
 }
 
 void GameField::setCell(Point2D coords, GameCell cell) {
@@ -53,14 +81,13 @@ GameField& GameField::operator=(const GameField &obj) {
         return *this;
 
     deleteField();
-    height_ = obj.height_;
-    width_ = obj.width_;
+    size_ = obj.size_;
 
-    field_ = ssGameCell(new sGameCell[height_], std::default_delete<sGameCell[]>());
+    field_ = ssGameCell(new sGameCell[getHeight()], std::default_delete<sGameCell[]>());
 
-    for (auto y = 0; y < height_; y++) {
-        field_.get()[y] = sGameCell(new GameCell[width_], std::default_delete<GameCell[]>());
-        for (auto x = 0; x < width_; x++) {
+    for (auto y = 0; y < getHeight(); y++) {
+        field_.get()[y] = sGameCell(new GameCell[getWidth()], std::default_delete<GameCell[]>());
+        for (auto x = 0; x < getWidth(); x++) {
             field_.get()[y].get()[x] = obj.field_.get()[y].get()[x];
         }
     }
@@ -68,29 +95,25 @@ GameField& GameField::operator=(const GameField &obj) {
     return *this;
 }
 
-void GameField::setSize(int height, int width) {
+void GameField::setSize(Size2D size) {
     deleteField();
-    height_ = height;
-    width_ = width;
-    field_ = ssGameCell(new sGameCell[height_], std::default_delete<sGameCell[]>());
+    size_ = size;
+    field_ = ssGameCell(new sGameCell[getHeight()], std::default_delete<sGameCell[]>());
 
-    for (auto y = 0; y < height_; y++)
-        field_.get()[y] = sGameCell(new GameCell[width_], std::default_delete<GameCell[]>());
+    for (auto y = 0; y < getHeight(); y++)
+        field_.get()[y] = sGameCell(new GameCell[getWidth()], std::default_delete<GameCell[]>());
 }
 
-GameField::GameField(GameField &&obj) : height_(obj.height_), width_(obj.width_),
-                                         field_(obj.field_) {
+GameField::GameField(GameField &&obj) : size_(obj.size_), field_(obj.field_) {
     obj.field_ = nullptr;
-    obj.height_ = 0;
-    obj.width_ = 0;
 }
 
-GameField::GameField(GameField &obj) : height_(obj.height_), width_(obj.width_) {
-    field_ = ssGameCell(new sGameCell[height_], std::default_delete<sGameCell[]>());
+GameField::GameField(GameField &obj) : size_(obj.size_) {
+    field_ = ssGameCell(new sGameCell[getHeight()], std::default_delete<sGameCell[]>());
 
-    for (auto y = 0; y < height_; y++) {
-        field_.get()[y] = sGameCell(new GameCell[width_], std::default_delete<GameCell[]>());
-        for (auto x = 0; x < width_; x++) {
+    for (auto y = 0; y < getHeight(); y++) {
+        field_.get()[y] = sGameCell(new GameCell[getWidth()], std::default_delete<GameCell[]>());
+        for (auto x = 0; x < getWidth(); x++) {
             field_.get()[y].get()[x] = obj.field_.get()[y].get()[x];
         }
     }
@@ -117,7 +140,7 @@ GameField::Iterator GameField::begin() {
 }
 
 GameField::Iterator GameField::end() {
-    return Iterator(Point2D(0, uniqueInstance_->height_));
+    return Iterator(Point2D(0, uniqueInstance_->getHeight()));
 }
 
 GameField::Iterator::Iterator(Point2D c): coords_(c) {}

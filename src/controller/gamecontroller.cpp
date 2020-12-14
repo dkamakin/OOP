@@ -40,7 +40,7 @@ void GameController::loadGame() {
     } catch (ArchiveException &e) {
         LoggerContext::getInstance() << e.getMessage() << "\n";
     } catch (...) {
-        LoggerContext::getInstance() << "Unkown error while loading\n";
+        LoggerContext::getInstance() << "Unkown error while loading" << "\n";
     }
 }
 
@@ -52,9 +52,8 @@ void GameController::saveGame() {
     } catch (ArchiveException &e) {
         LoggerContext::getInstance() << e.getMessage() << "\n";
     } catch (...) {
-        LoggerContext::getInstance() << "Unkown error while saving\n";
+        LoggerContext::getInstance() << "Unkown error while saving" << "\n";
     }
-
 }
 
 void GameController::endGame() {

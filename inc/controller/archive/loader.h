@@ -17,6 +17,7 @@ public:
 
 private:
     EnemyMemento loadEnemy();
+    void loadField(FieldMemento &field);
     void loadPlayer(Player &player);
 };
 

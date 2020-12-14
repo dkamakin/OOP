@@ -12,8 +12,8 @@ public:
     PlayerMemento() = default;
     PlayerMemento(Character player, InteractionType type);
 
-    InteractionType getType();
-    Character getPlayer();
+    InteractionType& getType();
+    Character& getPlayer();
 };
 
 #endif // PLAYERMEMENTO_H

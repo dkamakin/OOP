@@ -17,6 +17,7 @@ public:
 
 private:
     void savePlayer(Player player);
+    void saveField(GameField &field);
     void saveEnemy(sEnemyAbstract enemy);
 };
 

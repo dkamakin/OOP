@@ -6,6 +6,7 @@ CONFIG += c++11
 INCLUDEPATH += $$PWD/inc
 
 SOURCES += \
+    src/controller/archive/cellmemento.cpp \
     src/exceptions/archiveexception.cpp \
     src/controller/commands/loadcommand.cpp \
     src/controller/commands/savecommand.cpp \
@@ -49,6 +50,7 @@ SOURCES += \
     src/utilities/point2d.cpp
 
 HEADERS += \
+    inc/controller/archive/cellmemento.h \
     inc/exceptions/archiveexception.h \
     inc/controller/archive/archivetype.h \
     inc/controller/archive/enemymemento.h \

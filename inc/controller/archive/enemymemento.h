@@ -11,7 +11,7 @@ public:
     EnemyMemento() = default;
     EnemyMemento(Character enemy);
 
-    Character getEnemy();
+    Character& getEnemy();
 };
 
 #endif // ENEMYMEMENTO_H

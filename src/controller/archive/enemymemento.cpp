@@ -2,6 +2,6 @@
 
 EnemyMemento::EnemyMemento(Character enemy) : enemy_(enemy) {}
 
-Character EnemyMemento::getEnemy() {
+Character& EnemyMemento::getEnemy() {
     return enemy_;
 }
