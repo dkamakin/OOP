@@ -11,7 +11,5 @@
         <file>resources/ghost.png</file>
         <file>resources/girl.png</file>
         <file>resources/icon.png</file>
-        <file>resources/level1.oop</file>
-        <file>resources/level2.oop</file>
     </qresource>
 </RCC>

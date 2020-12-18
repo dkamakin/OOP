@@ -1,7 +1,9 @@
 #ifndef LOADER_H
 #define LOADER_H
 
+#include <cstring>
 #include "controller/gamecontroller.h"
+#include "fieldstructure.h"
 #include "archivetype.h"
 
 using sLoader = std::shared_ptr <class Loader>;
@@ -13,7 +15,7 @@ class Loader {
 
 public:
     Loader() = default;
-    void execute(std::string fileName, sPlayer &player, listEnemies &enemies, int &level);
+    void execute(std::string fileName, sPlayer &player, listEnemies &enemies);
 
 private:
     EnemyMemento loadEnemy();

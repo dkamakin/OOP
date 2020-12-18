@@ -6,8 +6,10 @@
 using sLoadCommand = std::shared_ptr <class LoadCommand>;
 
 class LoadCommand : public Command {
+    std::string file_;
+
 public:
-    explicit LoadCommand(sGameController controller);
+    LoadCommand(sGameController controller, std::string file);
     void execute() override;
 };
 

@@ -21,7 +21,6 @@ void LevelMapper::initScene(sQGraphicsScene &scene, const sGameController &contr
 
     scene = sQGraphicsScene(new QGraphicsScene);
     resize(Size2D(height, width), scene);
-    scene->addItem(playerInfo_.get());
 }
 
 void LevelMapper::resize(Size2D size, sQGraphicsScene &scene) {
@@ -38,6 +37,15 @@ void LevelMapper::resize(Size2D size, sQGraphicsScene &scene) {
             scene->addItem(cells_.get()[y].get()[x].get());
         }
     }
+
+    playerInfo_ = sQGraphicsTextItem(new QGraphicsTextItem);
+
+    QFont font("Times", 13, QFont::Bold);
+    playerInfo_->setFont(font);
+    playerInfo_->setPos(0, 0);
+    playerInfo_->setDefaultTextColor(QColor(255, 255, 255));
+
+    scene->addItem(playerInfo_.get());
 }
 
 void LevelMapper::updateScene(const sGameController &controller, sQGraphicsScene &scene) {

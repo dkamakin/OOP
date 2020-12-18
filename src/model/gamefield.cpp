@@ -67,9 +67,9 @@ Size2D GameField::getSize() {
     return size_;
 }
 
-void GameField::setCell(Point2D coords, GameCell cell) {
-    field_.get()[coords.getY()].get()[coords.getX()].getObject() = nullptr;
-    field_.get()[coords.getY()].get()[coords.getX()] = cell;
+void GameField::setCell(GameCell cell) {
+    field_.get()[cell.getCoords().getY()].get()[cell.getCoords().getX()].getObject() = nullptr;
+    field_.get()[cell.getCoords().getY()].get()[cell.getCoords().getX()] = cell;
 }
 
 void GameField::setObject(Point2D coords, sGameObject object) {

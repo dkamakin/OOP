@@ -4,10 +4,9 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
 INCLUDEPATH += $$PWD/inc
-OBJECTS_DIR = tmp/
 
 SOURCES += \
-    src/controller/commands/nextlevelcommand.cpp \
+    src/view/faqwindow.cpp \
     src/controller/archive/cellmemento.cpp \
     src/exceptions/archiveexception.cpp \
     src/controller/commands/loadcommand.cpp \
@@ -52,6 +51,8 @@ SOURCES += \
     src/utilities/point2d.cpp
 
 HEADERS += \
+    inc/controller/archive/fieldstructure.h \
+    inc/view/faqwindow.h \
     inc/controller/archive/cellmemento.h \
     inc/exceptions/archiveexception.h \
     inc/controller/archive/archivetype.h \
@@ -103,10 +104,10 @@ HEADERS += \
     inc/controller/archive/loader.h \
     inc/controller/archive/saver.h \
     inc/controller/commands/loadcommand.h \
-    inc/controller/commands/savecommand.h \
-    inc/controller/commands/nextlevelcommand.h
+    inc/controller/commands/savecommand.h
 
 FORMS += \
+    inc/view/faqwindow.ui \
     inc/view/mainwindow.ui
 
 # Default rules for deployment.

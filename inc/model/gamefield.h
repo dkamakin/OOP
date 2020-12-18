@@ -19,11 +19,12 @@ public:
     int getHeight();
     int getWidth();
     Size2D getSize();
+
     CellType getType(Point2D coords);
     sGameObject& getObject(Point2D coords);
 
     void setSize(Size2D size);
-    void setCell(Point2D coords, GameCell cell);
+    void setCell(GameCell cell);
     void setObject(Point2D coords, sGameObject object);
 
     void restore(FieldMemento &backup);

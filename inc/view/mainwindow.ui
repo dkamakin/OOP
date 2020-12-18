@@ -38,13 +38,14 @@
      <string>About</string>
     </property>
     <addaction name="actionAuthor"/>
+    <addaction name="actionFAQ"/>
    </widget>
    <widget class="QMenu" name="menuArchive">
     <property name="title">
-     <string>Archive</string>
+     <string>Menu</string>
     </property>
-    <addaction name="quickSave"/>
-    <addaction name="quickLoad"/>
+    <addaction name="actionSave"/>
+    <addaction name="actionLoad"/>
    </widget>
    <addaction name="menuArchive"/>
    <addaction name="menuAbout"/>
@@ -55,20 +56,24 @@
     <string>Author</string>
    </property>
   </action>
-  <action name="quickSave">
+  <action name="actionSave">
    <property name="text">
-    <string>Quick save</string>
-   </property>
-   <property name="shortcut">
-    <string>F11</string>
+    <string>Save game</string>
    </property>
   </action>
-  <action name="quickLoad">
+  <action name="actionLoad">
    <property name="text">
-    <string>Quick load</string>
+    <string>Load game</string>
    </property>
-   <property name="shortcut">
-    <string>F10</string>
+  </action>
+  <action name="actionHelp">
+   <property name="text">
+    <string>Help</string>
+   </property>
+  </action>
+  <action name="actionFAQ">
+   <property name="text">
+    <string>FAQ</string>
    </property>
   </action>
  </widget>

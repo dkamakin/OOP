@@ -2,11 +2,11 @@
 #define PLAYER_H
 
 #include "gameobjects/gameobject.h"
-#include "interactstrategy.h"
 #include "gameobjects/gameinteract.h"
+#include "controller/archive/playermemento.h"
+#include "interactstrategy.h"
 #include "character.h"
 #include "enemyabstract.h"
-#include "controller/archive/playermemento.h"
 
 class GameObject;
 class PlayerMemento;

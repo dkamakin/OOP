@@ -15,11 +15,10 @@ CellMemento GameCell::save() {
         return CellMemento(coords_, type_, NullType);
 
     auto &type = object_->getTypeInfo();
-    if (type == typeid (CoinObject)) {
+    if (type == typeid (CoinObject))
         return CellMemento(coords_, type_, CoinType);
-    } else if (type == typeid (ExitObject)) {
+    if (type == typeid (ExitObject))
         return CellMemento(coords_, type_, ExitType);
-    }
 
     return CellMemento(coords_, type_, NullType);
 }
@@ -40,7 +39,6 @@ void GameCell::restore(CellMemento &backup) {
             setObject(nullptr);
         break;
     }
-
 }
 
 CellType GameCell::getType() {

@@ -50,7 +50,7 @@ void Player::operator+=(sEnemyAbstract &right) {
     if (!right)
         return;
 
-    right->decHealth(10);
+    right->decHealth(20);
 }
 
 std::ostream& Player::operator<<(std::ostream &out) {

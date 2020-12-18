@@ -9,7 +9,6 @@ enum ArchiveType {
     FieldType = 'F',
     CoinType = 'C',
     ExitType = 'E',
-    LevelType = 'L',
     NullType = '\0'
 };
 

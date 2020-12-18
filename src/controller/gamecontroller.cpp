@@ -1,7 +1,7 @@
 #include "controller/gamecontroller.h"
 
 GameController::GameController(sField object, sControllerState state) :
-    field_(object), state_(state), level_(1) {
+    field_(object), state_(state) {
 
     auto &logger = LoggerContext::getInstance();
     logger.subscribe(new FileLogger("logs.txt"));
@@ -10,14 +10,6 @@ GameController::GameController(sField object, sControllerState state) :
 
 void GameController::move(Direction direction) {
     state_->moveCharacter(*this, direction);
-}
-
-void GameController::nextLevel() {
-    if (level_ == 2)
-        return;
-
-    level_++;
-    loadLevel();
 }
 
 void GameController::playerAttack() {
@@ -33,22 +25,25 @@ void GameController::setTurn(sControllerState state) {
 }
 
 bool GameController::isOver() {
-    return isEnd() && level_ == 2;
+    if (!player_)
+        return true;
+
+    return player_->getEnd();
 }
 
 void GameController::newGame() {
-    Loader loader;
-    level_ = 1;
     player_ = sPlayer(new Player(Point2D(1, 1), 100, sGameInteract(new GameInteract)));
+    enemies_.push_back(sEnemyAbstract(new Enemy<TheftTemplate>(Point2D(1, 4), 100)));
+    enemies_.push_back(sEnemyAbstract(new Enemy<AttackTemplate>(Point2D(4, 7), 100)));
+    enemies_.push_back(sEnemyAbstract(new Enemy<DebuffTemplate>(Point2D(10, 1), 100)));
     field_->makeMap();
-    loadLevel();
 }
 
-void GameController::loadGame() {
+void GameController::loadGame(std::string file) {
     Loader loader;
 
     try {
-        loader.execute(QUICK_FILE, player_, enemies_, level_);
+        loader.execute(file, player_, enemies_);
     } catch (ArchiveException &e) {
         LoggerContext::getInstance() << e.getMessage() << "\n";
     } catch (...) {
@@ -56,11 +51,11 @@ void GameController::loadGame() {
     }
 }
 
-void GameController::saveGame() {
+void GameController::saveGame(std::string file) {
     Saver saver;
 
     try {
-        saver.execute(QUICK_FILE, player_, enemies_, level_);
+        saver.execute(file, player_, enemies_);
     } catch (ArchiveException &e) {
         LoggerContext::getInstance() << e.getMessage() << "\n";
     } catch (...) {
@@ -68,27 +63,7 @@ void GameController::saveGame() {
     }
 }
 
-void GameController::loadLevel() {
-    Loader loader;
-    try {
-        loader.execute(LEVEL + std::to_string(level_) + ".oop", player_, enemies_, level_);
-    } catch (ArchiveException &e) {
-        LoggerContext::getInstance() << e.getMessage() << "\n";
-    } catch (...) {
-        LoggerContext::getInstance() << "Unkown error while loading" << "\n";
-    }
-}
-
-void GameController::endGame() {
-    player_ = nullptr;
-    enemies_.clear();
-}
-
-bool GameController::isEnd() {
-    if (!player_)
-        return true;
-    return player_->getEnd();
-}
+void GameController::endGame() {}
 
 CellType GameController::getType(Point2D &coords) {
     return field_->getType(coords);
@@ -96,10 +71,6 @@ CellType GameController::getType(Point2D &coords) {
 
 sPlayer& GameController::getPlayer() {
     return player_;
-}
-
-size_t GameController::getPlayerHealth() {
-    return player_->getHealth();
 }
 
 bool GameController::isEnemy(Point2D coords) {
@@ -134,14 +105,6 @@ std::string GameController::getPlayerInfo() {
     return player_->toString();
 }
 
-size_t GameController::getPoints() {
-    return player_->getPoints();
-}
-
 sField GameController::getField() {
     return field_;
-}
-
-void GameController::setEnemies(listEnemies enemies) {
-    enemies_ = enemies;
 }

@@ -10,8 +10,8 @@ sGameObject& Field::getObject(Point2D coords) {
     return field_.getObject(coords);
 }
 
-void Field::setCell(Point2D coords, GameCell cell) {
-    field_.setCell(coords, cell);
+void Field::setCell(GameCell cell) {
+    field_.setCell(cell);
 }
 
 void Field::setObject(Point2D coords, sGameObject object) {
@@ -19,7 +19,39 @@ void Field::setObject(Point2D coords, sGameObject object) {
 }
 
 void Field::makeMap() {
-    field_.setSize(Size2D(1, 1));
+    auto height = 15, width = 15;
+    field_.setSize(Size2D(height, width));
+    sExitObjectFactory exitFactory(new ExitObjectFactory);
+    sCoinObjectFactory coinFactory(new CoinObjectFactory);
+
+    int array[15][15] = {
+        {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+        {1,3,0,0,0,0,0,0,0,0,0,0,0,0,1},
+        {1,1,0,0,0,1,1,1,0,0,0,0,0,0,1},
+        {1,1,1,1,1,1,0,1,0,0,0,0,0,0,1},
+        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+        {1,0,0,0,0,0,1,1,1,0,0,0,0,0,1},
+        {1,0,0,0,1,1,1,0,1,1,1,1,1,1,1},
+        {1,0,0,1,0,0,0,0,0,0,0,0,0,0,1},
+        {1,0,0,1,0,0,0,0,0,0,0,0,0,0,1},
+        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+        {1,0,0,1,0,0,0,0,0,0,0,0,0,0,1},
+        {1,0,0,0,1,1,0,0,0,0,0,0,0,0,1},
+        {1,0,0,0,0,1,0,0,0,0,0,0,1,0,1},
+        {1,0,0,0,0,1,0,0,0,0,1,1,1,0,1},
+        {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+                    };
+
+    for (auto y = 0; y < height; y++)
+        for (auto x = 0; x < width; x++) {
+            auto type = static_cast<CellType>(array[y][x]);
+            field_.setCell(GameCell(type, Point2D(x, y), nullptr));
+        }
+
+    field_.getCell(Point2D(1, 1)).setType(Enter);
+    field_.getCell(Point2D(3, 2)).setObject(coinFactory->createObject());
+    field_.getCell(Point2D(10, 7)).setObject(coinFactory->createObject());
+    field_.getCell(Point2D(13, 13)).setObject(exitFactory->createObject());
 }
 
 void Field::deleteField() {

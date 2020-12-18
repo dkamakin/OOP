@@ -25,7 +25,7 @@ public:
     void makeMap();
     void deleteField();
 
-    void setCell(Point2D coords, GameCell cell);
+    void setCell(GameCell cell);
     void setObject(Point2D coords, sGameObject object);
 
     Iterator begin();

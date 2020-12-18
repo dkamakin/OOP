@@ -5,6 +5,7 @@
 #include <QDesktopWidget>
 #include <QKeyEvent>
 #include <QMessageBox>
+#include <QFileDialog>
 #include "controller/gamecontroller.h"
 #include "controller/commands/movecommand.h"
 #include "controller/commands/newgamecommand.h"
@@ -12,9 +13,9 @@
 #include "controller/commands/attackcommand.h"
 #include "controller/commands/savecommand.h"
 #include "controller/commands/loadcommand.h"
-#include "controller/commands/nextlevelcommand.h"
 #include "objectmapper.h"
 #include "levelmapper.h"
+#include "faqwindow.h"
 
 #define FIELD_COEFFICIENT 0.9
 
@@ -30,6 +31,7 @@ class MainWindow : public QMainWindow {
     QSize screenSize_;
 
     sMainWindowUi ui_;
+    sFAQWindow faq_;
 
     sGameController controller_;
     sQGraphicsScene scene_;
@@ -41,14 +43,12 @@ public:
 
 private slots:
     void on_actionAuthor_triggered();
-    void on_quickSave_triggered();
-    void on_quickLoad_triggered();
+    void on_actionSave_triggered();
+    void on_actionLoad_triggered();
+    void on_actionFAQ_triggered();
 
 protected:
     void keyPressEvent(QKeyEvent *event);
-
-private:
-    QMessageBox::StandardButton askQuestion(std::string top, std::string bottom);
 };
 
 #endif // MAINWINDOW_H

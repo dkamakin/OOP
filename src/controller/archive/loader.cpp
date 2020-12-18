@@ -1,6 +1,6 @@
 #include "controller/archive/loader.h"
 
-void Loader::execute(std::string fileName, sPlayer &player, listEnemies &enemies, int &level) {
+void Loader::execute(std::string fileName, sPlayer &player, listEnemies &enemies) {
     input_.open(fileName);
 
     if (!input_.is_open())
@@ -9,21 +9,31 @@ void Loader::execute(std::string fileName, sPlayer &player, listEnemies &enemies
     char symbol;
     enemies.clear();
     FieldMemento fieldBackup;
+    FieldStructure structure;
+    memset(&structure, 0, sizeof(FieldStructure));
 
     while (input_.read(&symbol, 1)) {
         if (symbol == HeroType) {
+            if (structure.player_)
+                throw ArchiveException("There are several copies of player");
+
             loadPlayer(*player.get());
-        } if (symbol == TheftType) {
+            structure.player_ = true;
+        } else if (symbol == TheftType) {
             enemies.push_back(sEnemyAbstract(new Enemy<TheftTemplate>(loadEnemy().getEnemy())));
-        } if (symbol == AttackType) {
+        } else if (symbol == AttackType) {
             enemies.push_back(sEnemyAbstract(new Enemy<AttackTemplate>(loadEnemy().getEnemy())));
-        } if (symbol == DebuffType) {
+        } else if (symbol == DebuffType) {
             enemies.push_back(sEnemyAbstract(new Enemy<DebuffTemplate>(loadEnemy().getEnemy())));
-        } if (symbol == FieldType) {
+        } else if (symbol == FieldType) {
+            if (structure.player_)
+                throw ArchiveException("There are several copes of field");
+
             loadField(fieldBackup);
             GameField::getInstance().restore(fieldBackup);
-        } if (symbol == LevelType) {
-            input_.read((char*)&level, sizeof(int));
+            structure.field_ = true;
+        } else {
+            throw ArchiveException("Wrong symbol occuried");
         }
     }
 

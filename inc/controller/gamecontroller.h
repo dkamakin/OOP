@@ -3,8 +3,8 @@
 
 #include <list>
 #include "model/field.h"
-#include "gameobjects/characters/player.h"
 #include "logger/loggercontext.h"
+#include "gameobjects/characters/player.h"
 #include "gameobjects/characters/enemy.h"
 #include "gameobjects/characters/thefttemplate.h"
 #include "gameobjects/characters/attacktemplate.h"
@@ -12,11 +12,10 @@
 #include "archive/saver.h"
 #include "archive/loader.h"
 #include "states/controllerstate.h"
-#include "exceptions/archiveexception.h"
 #include "states/playerturnstate.h"
 #include "states/enemyturnstate.h"
+#include "exceptions/archiveexception.h"
 
-#define LEVEL "../OOP/resources/level"
 #define QUICK_FILE "../save.oop"
 
 using sGameController = std::shared_ptr <class GameController>;
@@ -27,7 +26,6 @@ class GameController {
     sPlayer player_;
     sControllerState state_;
     listEnemies enemies_;
-    int level_;
 
 public:
     GameController(sField object, sControllerState state);
@@ -35,31 +33,26 @@ public:
 
     void newGame();
     void endGame();
-    void loadGame();
-    void saveGame();
-    void nextLevel();
-    void loadLevel();
+
+    void loadGame(std::string file);
+    void saveGame(std::string file);
+
     void playerAttack();
 
     void setTurn(sControllerState state);
-    void move(Direction direction);
     void startTurn();
+    void move(Direction direction);
 
     Point2D getPlayerCoords();
     std::string getPlayerInfo();
     sField getField();
     sPlayer& getPlayer();
     listEnemies& getEnemies();
-    size_t getPoints();
-    size_t getPlayerHealth();
     sEnemyAbstract getEnemy(Point2D coords);
     CellType getType(Point2D &coords);
 
     bool isEnemy(Point2D coords);
-    bool isEnd();
     bool isOver();
-
-    void setEnemies(listEnemies enemies);
 };
 
 #endif // GAMECONTROLLER_H

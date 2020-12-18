@@ -6,8 +6,10 @@
 using sSaveCommand = std::shared_ptr <class SaveCommand>;
 
 class SaveCommand : public Command {
+    std::string file_;
+
 public:
-    explicit SaveCommand(sGameController controller);
+    SaveCommand(sGameController controller, std::string file);
     void execute() override;
 };
 

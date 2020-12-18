@@ -14,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent)
     mapper_ = sLevelMapper(new LevelMapper(screenSize_.width(), screenSize_.height(), FIELD_COEFFICIENT));
     controller_ = sGameController(new GameController(sField(new Field(GameField::getInstance())),
                                                     sControllerState(new PlayerTurnState)));
+    faq_ = sFAQWindow(new FAQwindow);
 
     sNewGameCommand command(new NewGameCommand(controller_));
     command->execute();
@@ -45,6 +46,12 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
         case Qt::Key_V:
             command = sAttackCommand(new AttackCommand(controller_));
             break;
+        case Qt::Key_F10:
+            command = sLoadCommand(new LoadCommand(controller_, QUICK_FILE));
+            break;
+        case Qt::Key_F11:
+            command = sSaveCommand(new SaveCommand(controller_, QUICK_FILE));
+            break;
         default:
             return;
     }
@@ -52,12 +59,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
     if (command)
         command->execute();
 
-    if (controller_->isEnd() && !controller_->isOver()) {
-        QMessageBox::information(this, "Going deeper", "Going to the next level");
-        command = sNextLevelCommand(new NextLevelCommand(controller_));
-        command->execute();
-        mapper_->resize(GameField::getInstance().getSize(), scene_);
-    }
+    mapper_->updateScene(controller_, scene_);
 
     if (controller_->isOver()) {
         QMessageBox::information(nullptr, "The end", "The game is over, you won a beer!");
@@ -65,20 +67,24 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
         command->execute();
         return;
     }
-
-    mapper_->updateScene(controller_, scene_);
 }
 
-void MainWindow::on_quickLoad_triggered() {
-    sCommand command = sLoadCommand(new LoadCommand(controller_));
+void MainWindow::on_actionLoad_triggered() {
+    auto file = QFileDialog::getOpenFileName(this, "Select a file to load the game from").toStdString();
+    sCommand command = sLoadCommand(new LoadCommand(controller_, file));
     command->execute();
     mapper_->updateScene(controller_, scene_);
 }
 
-void MainWindow::on_quickSave_triggered() {
-    sCommand command = sSaveCommand(new SaveCommand(controller_));
+void MainWindow::on_actionSave_triggered() {
+    auto file = QFileDialog::getSaveFileName(this, "Select a file to save the game to").toStdString();
+    sCommand command = sSaveCommand(new SaveCommand(controller_, file));
     command->execute();
     mapper_->updateScene(controller_, scene_);
+}
+
+void MainWindow::on_actionFAQ_triggered() {
+    faq_->exec();
 }
 
 void MainWindow::on_actionAuthor_triggered() {

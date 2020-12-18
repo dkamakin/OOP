@@ -9,7 +9,7 @@ class EnemyMemento {
 
 public:
     EnemyMemento() = default;
-    EnemyMemento(Character enemy);
+    explicit EnemyMemento(Character enemy);
 
     Character& getEnemy();
 };
