@@ -27,7 +27,7 @@ void Loader::execute(std::string fileName, sPlayer &player, listEnemies &enemies
             enemies.push_back(sEnemyAbstract(new Enemy<DebuffTemplate>(loadEnemy().getEnemy())));
         } else if (symbol == FieldType) {
             if (structure.player_)
-                throw ArchiveException("There are several copes of field");
+                throw ArchiveException("There are several copies of field");
 
             loadField(fieldBackup);
             GameField::getInstance().restore(fieldBackup);
@@ -36,6 +36,9 @@ void Loader::execute(std::string fileName, sPlayer &player, listEnemies &enemies
             throw ArchiveException("Wrong symbol occuried");
         }
     }
+
+    if (!structure.field_ || !structure.player_)
+        throw ArchiveException("Field or player couldn't be read");
 
     input_.close();
 }

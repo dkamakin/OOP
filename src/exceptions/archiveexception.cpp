@@ -2,6 +2,6 @@
 
 ArchiveException::ArchiveException(std::string msg) : msg_(msg) {}
 
-std::string ArchiveException::getMessage() {
+std::string& ArchiveException::getMessage() {
     return msg_;
 }
