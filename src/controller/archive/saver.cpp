@@ -32,7 +32,7 @@ void Saver::saveField(GameField &field) {
 
 }
 
-void Saver::savePlayer(Player player) {
+void Saver::savePlayer(Player &player) {
     char symbol = HeroType;
     output_.write(&symbol, sizeof(char));
 
@@ -40,16 +40,17 @@ void Saver::savePlayer(Player player) {
     output_.write((char*)&snapshot, sizeof(PlayerMemento));
 }
 
-void Saver::saveEnemy(sEnemyAbstract enemy) {
+void Saver::saveEnemy(sEnemyAbstract &enemy) {
     auto &type = enemy->getTypeInfo();
     char symbol = '\0';
 
-    if (type == typeid (Enemy<AttackTemplate>))
+    if (type == typeid (Enemy<AttackTemplate>)) {
         symbol = AttackType;
-    if (type == typeid (Enemy<DebuffTemplate>))
+    } else  if (type == typeid (Enemy<DebuffTemplate>)) {
         symbol = DebuffType;
-    if (type == typeid (Enemy<TheftTemplate>))
+    } else if (type == typeid (Enemy<TheftTemplate>)) {
         symbol = TheftType;
+    }
 
     output_.write(&symbol, sizeof(char));
     EnemyMemento memento = enemy->save();

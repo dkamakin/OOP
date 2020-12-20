@@ -18,9 +18,9 @@ public:
     void execute(std::string fileName, sPlayer &player, listEnemies &enemies);
 
 private:
-    EnemyMemento loadEnemy();
+    void loadEnemy(EnemyMemento &enemy);
     void loadField(FieldMemento &field);
-    void loadPlayer(Player &player);
+    void loadPlayer(PlayerMemento &player);
 };
 
 #endif // LOADER_H

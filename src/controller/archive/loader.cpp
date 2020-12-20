@@ -9,24 +9,31 @@ void Loader::execute(std::string fileName, sPlayer &player, listEnemies &enemies
     char symbol;
     enemies.clear();
     FieldMemento fieldBackup;
+    EnemyMemento enemyBackup;
+    PlayerMemento playerBackup;
     FieldStructure structure;
     memset(&structure, 0, sizeof(FieldStructure));
 
     while (input_.read(&symbol, 1)) {
+
         if (symbol == HeroType) {
             if (structure.player_)
                 throw ArchiveException("There are several copies of player");
 
-            loadPlayer(*player.get());
+            loadPlayer(playerBackup);
+            player->restore(playerBackup);
             structure.player_ = true;
         } else if (symbol == TheftType) {
-            enemies.push_back(sEnemyAbstract(new Enemy<TheftTemplate>(loadEnemy().getEnemy())));
+            loadEnemy(enemyBackup);
+            enemies.push_back(sEnemyAbstract(new Enemy<TheftTemplate>(enemyBackup.getEnemy())));
         } else if (symbol == AttackType) {
-            enemies.push_back(sEnemyAbstract(new Enemy<AttackTemplate>(loadEnemy().getEnemy())));
+            loadEnemy(enemyBackup);
+            enemies.push_back(sEnemyAbstract(new Enemy<AttackTemplate>(enemyBackup.getEnemy())));
         } else if (symbol == DebuffType) {
-            enemies.push_back(sEnemyAbstract(new Enemy<DebuffTemplate>(loadEnemy().getEnemy())));
+            loadEnemy(enemyBackup);
+            enemies.push_back(sEnemyAbstract(new Enemy<DebuffTemplate>(enemyBackup.getEnemy())));
         } else if (symbol == FieldType) {
-            if (structure.player_)
+            if (structure.field_)
                 throw ArchiveException("There are several copies of field");
 
             loadField(fieldBackup);
@@ -61,14 +68,10 @@ void Loader::loadField(FieldMemento &field) {
     }
 }
 
-EnemyMemento Loader::loadEnemy() {
-    EnemyMemento memento;
-    input_.read((char*)&memento, sizeof(EnemyMemento));
-    return memento;
+void Loader::loadEnemy(EnemyMemento &enemy) {
+    input_.read((char*)&enemy, sizeof(EnemyMemento));
 }
 
-void Loader::loadPlayer(Player &player) {
-    PlayerMemento snapshot;
-    input_.read((char*)&snapshot, sizeof(PlayerMemento));
-    player.restore(snapshot);
+void Loader::loadPlayer(PlayerMemento &player) {
+    input_.read((char*)&player, sizeof(PlayerMemento));
 }

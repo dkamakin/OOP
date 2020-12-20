@@ -16,9 +16,9 @@ public:
     void execute(std::string fileName, sPlayer player, listEnemies &enemies);
 
 private:
-    void savePlayer(Player player);
+    void savePlayer(Player &player);
     void saveField(GameField &field);
-    void saveEnemy(sEnemyAbstract enemy);
+    void saveEnemy(sEnemyAbstract &enemy);
 };
 
 #endif // SAVER_H

@@ -62,7 +62,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
     mapper_->updateScene(controller_, scene_);
 
     if (controller_->isOver()) {
-        QMessageBox::information(nullptr, "The end", "The game is over, you won a beer!");
+        QMessageBox::information(nullptr, "The end", "The game is over");
         command = sEndGameCommand(new EndGameCommand(controller_));
         command->execute();
         return;
@@ -88,5 +88,5 @@ void MainWindow::on_actionFAQ_triggered() {
 }
 
 void MainWindow::on_actionAuthor_triggered() {
-    QMessageBox::information(this, "Author", "Made by Kamakin Daniil, 9381");
+    QMessageBox::information(this, "Author", "Kamakin Daniil, ETU (hell)");
 }
