@@ -46,11 +46,11 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
         case Qt::Key_V:
             command = sAttackCommand(new AttackCommand(controller_));
             break;
-        case Qt::Key_F10:
-            command = sLoadCommand(new LoadCommand(controller_, QUICK_FILE));
-            break;
-        case Qt::Key_F11:
+        case Qt::Key_O:
             command = sSaveCommand(new SaveCommand(controller_, QUICK_FILE));
+            break;
+        case Qt::Key_P:
+            command = sLoadCommand(new LoadCommand(controller_, QUICK_FILE));
             break;
         default:
             return;
