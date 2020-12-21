@@ -33,7 +33,7 @@ void GameCell::restore(CellMemento &backup) {
         setObject(CoinObjectFactory().createObject());
     } else if (object == typeid(ExitObject).hash_code()) {
         setObject(ExitObjectFactory().createObject());
-    } else if (object == typeid (SwordObject).hash_code()) {
+    } else if (object == typeid(SwordObject).hash_code()) {
         setObject(SwordObjectFactory().createObject());
     } else {
         setObject(nullptr);
