@@ -9,14 +9,16 @@ class CellMemento {
     Point2D coords_;
     CellType type_;
     size_t object_;
+    bool passable_;
 
 public:
     CellMemento() = default;
-    CellMemento(Point2D coords, CellType type, size_t object);
+    CellMemento(Point2D coords, CellType type, size_t object, bool passable);
 
     Point2D& getCoords();
     CellType& getType();
     size_t& getObject();
+    bool& getPassable();
 };
 
 #endif // CELLMEMENTO_H

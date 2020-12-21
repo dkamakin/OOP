@@ -1,11 +1,13 @@
 #include "gameobjects/characters/player.h"
 
-Player::Player(Point2D coords, size_t health, sInteractStrategy strategy) {
+Player::Player(Point2D coords, size_t health, sInteractStrategy strategy, int damageDeal) {
     setPoints(0);
     setCoords(coords);
     setHealth(health);
     setHealthDebuff(false);
     setEnd(false);
+    setDirection(Right);
+    setDamageDeal(damageDeal);
     strategy_ = strategy;
 }
 
@@ -30,6 +32,7 @@ void Player::restore(PlayerMemento &backup) {
     setPoints(player.getPoints());
     setEnd(player.getEnd());
     setDirection(player.getDirection());
+    addDamageDeal(player.getDamageDeal());
 
     if (type == typeid(GameInteract).hash_code())
         setStrategy(sInteractStrategy(new GameInteract));
@@ -48,7 +51,7 @@ void Player::operator+=(sEnemyAbstract &right) {
     if (!right)
         return;
 
-    right->decHealth(20);
+    right->decHealth(getDamageDeal());
 }
 
 std::ostream& Player::operator<<(std::ostream &out) {

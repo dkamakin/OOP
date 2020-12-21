@@ -12,6 +12,18 @@ void Character::setCoords(Point2D coords) {
     coords_ = coords;
 }
 
+void Character::setDamageDeal(int damageDeal) {
+    damageDeal_ = damageDeal;
+}
+
+int Character::getDamageDeal() {
+    return damageDeal_;
+}
+
+void Character::addDamageDeal(int damageDeal) {
+    damageDeal_ += damageDeal;
+}
+
 void Character::setHealth(size_t health) {
     health_ = health;
 }
@@ -80,5 +92,6 @@ std::string Character::toString() {
             "Health: " + std::to_string(getHealth()) + "\n" +
             "Health debuff: " + (getHealthDebuff() ? "yes" : "no") + '\n' +
             "End: " + (getEnd() ? "true" : "false") + "\n" +
+            "Damage deal: " + std::to_string(getDamageDeal()) + "\n" +
             "Direction " + static_cast<char>(direction_);
 }

@@ -6,9 +6,17 @@ CONFIG += c++11
 INCLUDEPATH += $$PWD/inc
 
 SOURCES += \
-    src/view/faqwindow.cpp \
-    src/controller/archive/cellmemento.cpp \
     src/exceptions/archiveexception.cpp \
+    src/view/faqwindow.cpp \
+    src/view/levelmapper.cpp \
+    src/view/objectmapper.cpp \
+    src/view/mainwindow.cpp \
+    src/logger/logger.cpp \
+    src/logger/consoleloggerbridge.cpp \
+    src/logger/fileloggerbridge.cpp \
+    src/logger/consolelogger.cpp \
+    src/logger/filelogger.cpp \
+    src/logger/loggercontext.cpp \
     src/controller/commands/loadcommand.cpp \
     src/controller/commands/savecommand.cpp \
     src/controller/archive/loader.cpp \
@@ -16,15 +24,8 @@ SOURCES += \
     src/controller/archive/enemymemento.cpp \
     src/controller/archive/fieldmemento.cpp \
     src/controller/archive/playermemento.cpp \
-    src/view/levelmapper.cpp \
-    src/view/objectmapper.cpp \
-    src/logger/logger.cpp \
-    src/logger/consoleloggerbridge.cpp \
-    src/logger/fileloggerbridge.cpp \
-    src/logger/consolelogger.cpp \
-    src/logger/filelogger.cpp \
-    src/logger/loggercontext.cpp \
     src/controller/commands/endgamecommand.cpp \
+    src/controller/archive/cellmemento.cpp \
     src/controller/commands/newgamecommand.cpp \
     src/controller/commands/command.cpp \
     src/controller/commands/movecommand.cpp \
@@ -40,21 +41,20 @@ SOURCES += \
     src/gameobjects/coin/coinobject.cpp \
     src/gameobjects/characters/player.cpp \
     src/gameobjects/coin/coinobjectfactory.cpp \
+    src/gameobjects/sword/swordobject.cpp \
+    src/gameobjects/sword/swordobjectfactory.cpp \
     src/gameobjects/exit/exitobjectfactory.cpp \
     src/gameobjects/characters/thefttemplate.cpp \
-    src/model/cell.cpp \
-    src/model/field.cpp \
     src/model/gamecell.cpp \
     src/model/gamefield.cpp \
+    src/model/fieldmapper.cpp \
     src/main.cpp \
-    src/view/mainwindow.cpp \
     src/utilities/point2d.cpp
 
 HEADERS += \
-    inc/controller/archive/filestructure.h \
-    inc/view/faqwindow.h \
-    inc/controller/archive/cellmemento.h \
     inc/exceptions/archiveexception.h \
+    inc/controller/archive/cellmemento.h \
+    inc/controller/archive/filestructure.h \
     inc/controller/archive/enemymemento.h \
     inc/controller/archive/fieldmemento.h \
     inc/controller/commands/attackcommand.h \
@@ -74,10 +74,9 @@ HEADERS += \
     inc/logger/loggercontext.h \
     inc/logger/consoleloggerbridge.h \
     inc/logger/fileloggerbridge.h \
-    inc/model/cell.h \
-    inc/model/field.h \
     inc/model/celltype.h \
     inc/model/gamecell.h \
+    inc/model/fieldmapper.h \
     inc/model/gamefield.h \
     inc/gameobjects/characters/character.h \
     inc/gameobjects/characters/enemyabstract.h \
@@ -94,11 +93,14 @@ HEADERS += \
     inc/gameobjects/exit/exitobjectfactory.h \
     inc/gameobjects/gameobjectfactory.h \
     inc/gameobjects/characters/interactstrategy.h \
+    inc/gameobjects/sword/swordobject.h \
+    inc/gameobjects/sword/swordobjectfactory.h \
     inc/gameobjects/characters/thefttemplate.h \
     inc/utilities/point2d.h \
     inc/view/objectmapper.h \
     inc/view/mainwindow.h \
     inc/view/levelmapper.h \
+    inc/view/faqwindow.h \
     inc/controller/archive/playermemento.h \
     inc/controller/archive/loader.h \
     inc/controller/archive/saver.h \

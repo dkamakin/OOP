@@ -1,5 +1,5 @@
 #include "gameobjects/characters/attacktemplate.h"
 
-void AttackTemplate::interact(Player &player) {
-    player.decHealth(10);
+void AttackTemplate::interact(Player &player, Character &enemy) {
+    player.decHealth(enemy.getDamageDeal());
 }

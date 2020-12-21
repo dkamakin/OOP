@@ -2,7 +2,7 @@
 #define GAMECONTROLLER_H
 
 #include <list>
-#include "model/field.h"
+#include "model/fieldmapper.h"
 #include "logger/loggercontext.h"
 #include "gameobjects/characters/player.h"
 #include "gameobjects/characters/enemy.h"
@@ -22,13 +22,13 @@ using sGameController = std::shared_ptr <class GameController>;
 using listEnemies = std::list <sEnemyAbstract>;
 
 class GameController {
-    sField field_;
+    GameField &field_;
     sPlayer player_;
     sControllerState state_;
     listEnemies enemies_;
 
 public:
-    GameController(sField object, sControllerState state);
+    GameController(GameField &field, sControllerState state);
     ~GameController();
 
     void newGame();
@@ -45,11 +45,10 @@ public:
 
     Point2D getPlayerCoords();
     std::string getPlayerInfo();
-    sField getField();
     sPlayer& getPlayer();
     listEnemies& getEnemies();
     sEnemyAbstract getEnemy(Point2D coords);
-    CellType getType(Point2D &coords);
+    GameField& getField();
 
     bool isEnemy(Point2D coords);
     bool isOver();

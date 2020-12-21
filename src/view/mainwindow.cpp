@@ -12,8 +12,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui_->view->setFixedSize(screenSize_ * FIELD_COEFFICIENT);
 
     mapper_ = sLevelMapper(new LevelMapper(screenSize_.width(), screenSize_.height(), FIELD_COEFFICIENT));
-    controller_ = sGameController(new GameController(sField(new Field(GameField::getInstance())),
-                                                    sControllerState(new PlayerTurnState)));
+    controller_ = sGameController(new GameController(GameField::getInstance(), sControllerState(new PlayerTurnState)));
     faq_ = sFAQWindow(new FAQwindow);
 
     sNewGameCommand command(new NewGameCommand(controller_));

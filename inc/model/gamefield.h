@@ -22,6 +22,7 @@ public:
 
     CellType getType(Point2D coords);
     sGameObject& getObject(Point2D coords);
+    bool getPassable(Point2D coords);
 
     void setSize(Size2D size);
     void setCell(GameCell cell);

@@ -1,7 +1,7 @@
 #include "controller/gamecontroller.h"
 
-GameController::GameController(sField object, sControllerState state) :
-    field_(object), state_(state) {
+GameController::GameController(GameField &field, sControllerState state) :
+    field_(field), state_(state) {
 
     auto &logger = LoggerContext::getInstance();
     logger.subscribe(new FileLogger("logs.txt"));
@@ -32,11 +32,12 @@ bool GameController::isOver() {
 }
 
 void GameController::newGame() {
-    player_ = sPlayer(new Player(Point2D(1, 1), 100, sGameInteract(new GameInteract)));
-    enemies_.push_back(sEnemyAbstract(new Enemy<TheftTemplate>(Point2D(1, 4), 100)));
-    enemies_.push_back(sEnemyAbstract(new Enemy<AttackTemplate>(Point2D(4, 7), 100)));
-    enemies_.push_back(sEnemyAbstract(new Enemy<DebuffTemplate>(Point2D(10, 1), 100)));
-    field_->makeMap();
+    FieldMapper mapper(field_);
+    player_ = sPlayer(new Player(Point2D(1, 1), 100, sGameInteract(new GameInteract), 10));
+    enemies_.push_back(sEnemyAbstract(new Enemy<TheftTemplate>(Point2D(1, 4), 100, 0)));
+    enemies_.push_back(sEnemyAbstract(new Enemy<AttackTemplate>(Point2D(4, 7), 100, 20)));
+    enemies_.push_back(sEnemyAbstract(new Enemy<DebuffTemplate>(Point2D(10, 1), 100, 0)));
+    mapper.makeMap();
 }
 
 void GameController::loadGame(std::string file) {
@@ -64,10 +65,6 @@ void GameController::saveGame(std::string file) {
 }
 
 void GameController::endGame() {}
-
-CellType GameController::getType(Point2D &coords) {
-    return field_->getType(coords);
-}
 
 sPlayer& GameController::getPlayer() {
     return player_;
@@ -105,6 +102,6 @@ std::string GameController::getPlayerInfo() {
     return player_->toString();
 }
 
-sField GameController::getField() {
+GameField& GameController::getField() {
     return field_;
 }

@@ -11,5 +11,6 @@
         <file>resources/ghost.png</file>
         <file>resources/girl.png</file>
         <file>resources/icon.png</file>
+        <file>resources/sword.png</file>
     </qresource>
 </RCC>

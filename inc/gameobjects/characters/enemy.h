@@ -10,9 +10,10 @@ class Enemy : public EnemyAbstract {
     sEnemyTemplate template_;
 
 public:
-    Enemy(Point2D coords, int health) : template_(sEnemyTemplate(new EnemyTemplate)) {
+    Enemy(Point2D coords, int health, int damageDeal) : template_(sEnemyTemplate(new EnemyTemplate)) {
         setCoords(coords);
         setHealth(health);
+        setDamageDeal(damageDeal);
     }
 
     explicit Enemy(Character character) : template_(sEnemyTemplate(new EnemyTemplate)) {
@@ -36,7 +37,7 @@ public:
 
 private:
     void interact(Player &player) override {
-        template_->interact(player);
+        template_->interact(player, *this);
     }
 
 };

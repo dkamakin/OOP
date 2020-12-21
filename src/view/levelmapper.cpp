@@ -3,9 +3,9 @@
 LevelMapper::LevelMapper(int width, int height, double coefficient) : cellWidth_(width), cellHeight_(height), coefficient_(coefficient) {}
 
 void LevelMapper::initScene(sQGraphicsScene &scene, const sGameController &controller) {
-    auto field = controller->getField();
-    auto width = field->getWidth();
-    auto height = field->getHeight();
+    auto &field = GameField::getInstance();
+    auto width = field.getWidth();
+    auto height = field.getHeight();
     size_ = Size2D(height, width);
 
     cellWidth_ = (cellWidth_ / width) * coefficient_;
@@ -49,15 +49,15 @@ void LevelMapper::resize(Size2D size, sQGraphicsScene &scene) {
 }
 
 void LevelMapper::updateScene(const sGameController &controller, sQGraphicsScene &scene) {
-    auto field = controller->getField();
+    auto &field = GameField::getInstance();
 
-    if (size_ != field->getSize())
-        resize(field->getSize(), scene);
+    if (size_ != field.getSize())
+        resize(field.getSize(), scene);
 
     auto playerCoords = controller->getPlayerCoords();
     auto enemies = controller->getEnemies();
 
-    for (Cell &cell : *field) {
+    for (auto &cell : field) {
         auto x = cell.getCoords().getX(), y = cell.getCoords().getY();
         QImage cellImage = objectMapper_->getImage(cell.getType());
         QPainter painter(&cellImage);
@@ -66,9 +66,6 @@ void LevelMapper::updateScene(const sGameController &controller, sQGraphicsScene
 
         if (cell.getObject())
             painter.drawImage(0, 0, objectMapper_->getImage(cell.getObject()));
-
-        if (!y || !x || y == field->getHeight() - 1 || x == field->getWidth() - 1)
-            painter.drawImage(0, 0, QImage(BORDER_IMAGE).scaled(cellWidth_, cellHeight_));
 
         if (cell.getCoords() == playerCoords)
             painter.drawImage(0, 0, QImage(PLAYER_IMAGE).scaled(cellWidth_, cellHeight_));

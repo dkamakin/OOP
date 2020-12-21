@@ -7,6 +7,7 @@
 #include "gameobjects/characters/enemyabstract.h"
 #include "gameobjects/coin/coinobject.h"
 #include "gameobjects/exit/exitobject.h"
+#include "gameobjects/sword/swordobject.h"
 #include "gameobjects/characters/thefttemplate.h"
 #include "gameobjects/characters/debufftemplate.h"
 #include "gameobjects/characters/attacktemplate.h"
@@ -22,6 +23,7 @@
 #define STATUE_IMAGE ":/resources/enemyStatue.png"
 #define GIRL_IMAGE ":/resources/girl.png"
 #define GHOST_IMAGE ":/resources/ghost.png"
+#define SWORD_IMAGE ":/resources/sword.png"
 
 using sObjectMapper = std::shared_ptr <class ObjectMapper>;
 

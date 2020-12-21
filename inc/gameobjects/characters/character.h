@@ -14,6 +14,7 @@ class Character {
     Direction direction_;
     bool end_;
     bool healthDebuff_;
+    int damageDeal_;
 
 public:
     Character() = default;
@@ -27,16 +28,19 @@ public:
     size_t getPoints();
     bool getHealthDebuff();
     bool getEnd();
+    int getDamageDeal();
 
     void setCoords(Point2D coords);
-    void setHealth(size_t heath);
+    void setHealth(size_t heatlh);
     void setDirection(Direction direction);
     void setPoints(size_t points);
     void addPoints(size_t points);
     void setEnd(bool value);
     void decHealth(size_t health);
+    void setDamageDeal(int damageDeal);
     void decPoints(size_t points);
     void setHealthDebuff(bool debuff);
+    void addDamageDeal(int damageDeal);
 };
 
 #endif // CHARACTER_H

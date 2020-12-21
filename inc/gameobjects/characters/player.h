@@ -18,7 +18,7 @@ class Player : public Character {
     sInteractStrategy strategy_;
 
 public:
-    Player(Point2D coords, size_t health, sInteractStrategy strategy);
+    Player(Point2D coords, size_t health, sInteractStrategy strategy, int damageDeal);
 
     std::ostream& operator<<(std::ostream &out);
     void operator+=(sGameObject &right);

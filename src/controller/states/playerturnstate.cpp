@@ -4,12 +4,12 @@ void PlayerTurnState::moveCharacter(GameController& controller, Direction direct
     LoggerContext::getInstance() << "[Move]" << "\n";
     auto coords = controller.getPlayerCoords();
     auto player = controller.getPlayer();
-    auto field = controller.getField();
+    auto &field = GameField::getInstance();
 
     coords.move(direction);
     player->setDirection(direction);
 
-    auto &object = field->getObject(coords);
+    auto &object = field.getObject(coords);
     LoggerContext::getInstance() << (object ? "Object: " + object->toString() : "Object: null") << "\n";
 
     *player += object;
@@ -23,7 +23,7 @@ void PlayerTurnState::moveCharacter(GameController& controller, Direction direct
         return;
     }
 
-    if (field->getType(coords) == Wall) {
+    if (!field.getPassable(coords)) {
         LoggerContext::getInstance() << player->toString() << "\n\n";
         LoggerContext::getInstance() << "Wrong direction" << "\n\n";
         return;

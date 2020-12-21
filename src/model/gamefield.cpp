@@ -135,6 +135,10 @@ sGameObject& GameField::getObject(Point2D coords) {
     return field_.get()[coords.getY()].get()[coords.getX()].getObject();
 }
 
+bool GameField::getPassable(Point2D coords) {
+    return field_.get()[coords.getY()].get()[coords.getX()].getPassable();
+}
+
 GameField::Iterator GameField::begin() {
     return GameField::Iterator(Point2D());
 }
