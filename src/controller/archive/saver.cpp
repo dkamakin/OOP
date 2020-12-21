@@ -17,8 +17,8 @@ void Saver::execute(std::string fileName, sPlayer player, listEnemies &enemies) 
 }
 
 void Saver::saveField(GameField &field) {
-    char symbol = FieldType;
-    output_.write(&symbol, sizeof(char));
+    size_t hash = typeid(FieldMemento).hash_code();
+    output_.write((char*)&hash, sizeof(size_t));
 
     FieldMemento snapshot = field.save();
     auto &size = snapshot.getSize();
@@ -33,26 +33,17 @@ void Saver::saveField(GameField &field) {
 }
 
 void Saver::savePlayer(Player &player) {
-    char symbol = HeroType;
-    output_.write(&symbol, sizeof(char));
+    size_t hash = typeid(PlayerMemento).hash_code();
+    output_.write((char*)&hash, sizeof(size_t));
 
     PlayerMemento snapshot = player.save();
     output_.write((char*)&snapshot, sizeof(PlayerMemento));
 }
 
 void Saver::saveEnemy(sEnemyAbstract &enemy) {
-    auto &type = enemy->getTypeInfo();
-    char symbol = '\0';
+    size_t hash = enemy->getTypeInfo().hash_code();
+    output_.write((char*)&hash, sizeof(size_t));
 
-    if (type == typeid (Enemy<AttackTemplate>)) {
-        symbol = AttackType;
-    } else  if (type == typeid (Enemy<DebuffTemplate>)) {
-        symbol = DebuffType;
-    } else if (type == typeid (Enemy<TheftTemplate>)) {
-        symbol = TheftType;
-    }
-
-    output_.write(&symbol, sizeof(char));
     EnemyMemento memento = enemy->save();
     output_.write((char*)&memento, sizeof(EnemyMemento));
 }

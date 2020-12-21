@@ -2,7 +2,6 @@
 #define ENEMYABSTRACT_H
 
 #include "character.h"
-#include "controller/archive/archivetype.h"
 
 class Player;
 class EnemyMemento;

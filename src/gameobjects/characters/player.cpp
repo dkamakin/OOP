@@ -14,17 +14,15 @@ void Player::setStrategy(sInteractStrategy strategy) {
 }
 
 PlayerMemento Player::save() {
-    InteractionType type_ = GameInteractType;
+    if (!strategy_)
+        return PlayerMemento(*this, 0);
 
-    if (strategy_->getTypeInfo() == typeid (GameInteract))
-        type_ = GameInteractType;
-
-    return PlayerMemento(*this, type_);
+    return PlayerMemento(*this, strategy_->getTypeInfo().hash_code());
 }
 
 void Player::restore(PlayerMemento &backup) {
     Character player = backup.getPlayer();
-    InteractionType type = backup.getType();
+    size_t type = backup.getType();
 
     setCoords(player.getCoords());
     setHealth(player.getHealth());
@@ -33,7 +31,7 @@ void Player::restore(PlayerMemento &backup) {
     setEnd(player.getEnd());
     setDirection(player.getDirection());
 
-    if (type == GameInteractType)
+    if (type == typeid(GameInteract).hash_code())
         setStrategy(sInteractStrategy(new GameInteract));
     else
         setStrategy(nullptr);

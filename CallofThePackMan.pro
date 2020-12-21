@@ -51,11 +51,10 @@ SOURCES += \
     src/utilities/point2d.cpp
 
 HEADERS += \
-    inc/controller/archive/fieldstructure.h \
+    inc/controller/archive/filestructure.h \
     inc/view/faqwindow.h \
     inc/controller/archive/cellmemento.h \
     inc/exceptions/archiveexception.h \
-    inc/controller/archive/archivetype.h \
     inc/controller/archive/enemymemento.h \
     inc/controller/archive/fieldmemento.h \
     inc/controller/commands/attackcommand.h \

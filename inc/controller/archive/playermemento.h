@@ -6,13 +6,13 @@
 
 class PlayerMemento {
     Character player_;
-    InteractionType type_;
+    size_t interactionType_;
 
 public:
     PlayerMemento() = default;
-    PlayerMemento(Character player, InteractionType type);
+    PlayerMemento(Character player, size_t type);
 
-    InteractionType& getType();
+    size_t& getType();
     Character& getPlayer();
 };
 

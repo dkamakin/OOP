@@ -1,9 +1,9 @@
 #include "controller/archive/playermemento.h"
 
-PlayerMemento::PlayerMemento(Character player, InteractionType type) : player_(player), type_(type) {}
+PlayerMemento::PlayerMemento(Character player, size_t type) : player_(player), interactionType_(type) {}
 
-InteractionType& PlayerMemento::getType() {
-    return type_;
+size_t& PlayerMemento::getType() {
+    return interactionType_;
 }
 
 Character& PlayerMemento::getPlayer() {

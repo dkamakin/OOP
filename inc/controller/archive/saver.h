@@ -2,7 +2,6 @@
 #define SAVER_H
 
 #include "controller/gamecontroller.h"
-#include "archivetype.h"
 
 using sSaver = std::shared_ptr <class Saver>;
 using sGameController = std::shared_ptr <class GameController>;

@@ -3,10 +3,6 @@
 
 #include "gameobjects/gameobject.h"
 
-enum InteractionType {
-    GameInteractType
-};
-
 using sInteractStrategy = std::shared_ptr <class InteractStrategy>;
 
 class InteractStrategy {

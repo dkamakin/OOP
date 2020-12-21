@@ -3,8 +3,7 @@
 
 #include <cstring>
 #include "controller/gamecontroller.h"
-#include "fieldstructure.h"
-#include "archivetype.h"
+#include "filestructure.h"
 
 using sLoader = std::shared_ptr <class Loader>;
 using sGameController = std::shared_ptr <class GameController>;

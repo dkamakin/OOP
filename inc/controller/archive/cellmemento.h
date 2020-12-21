@@ -4,20 +4,19 @@
 #include "utilities/point2d.h"
 #include "gameobjects/gameobject.h"
 #include "model/celltype.h"
-#include "archivetype.h"
 
 class CellMemento {
     Point2D coords_;
     CellType type_;
-    ArchiveType object_;
+    size_t object_;
 
 public:
     CellMemento() = default;
-    CellMemento(Point2D coords, CellType type, ArchiveType object);
+    CellMemento(Point2D coords, CellType type, size_t object);
 
     Point2D& getCoords();
     CellType& getType();
-    ArchiveType& getObject();
+    size_t& getObject();
 };
 
 #endif // CELLMEMENTO_H

@@ -12,32 +12,23 @@ sGameObject& GameCell::getObject() {
 
 CellMemento GameCell::save() {
     if (!object_)
-        return CellMemento(coords_, type_, NullType);
+        return CellMemento(coords_, type_, 0);
 
-    auto &type = object_->getTypeInfo();
-    if (type == typeid (CoinObject))
-        return CellMemento(coords_, type_, CoinType);
-    if (type == typeid (ExitObject))
-        return CellMemento(coords_, type_, ExitType);
-
-    return CellMemento(coords_, type_, NullType);
+    return CellMemento(coords_, type_, object_->getTypeInfo().hash_code());
 }
 
 void GameCell::restore(CellMemento &backup) {
     setCoords(backup.getCoords());
     setType(backup.getType());
 
-    switch (backup.getObject()) {
-        case CoinType:
-            setObject(CoinObjectFactory().createObject());
-            break;
-        case ExitType:
-            setObject(ExitObjectFactory().createObject());
-            break;
-        case NullType:
-        default:
-            setObject(nullptr);
-        break;
+    size_t &object = backup.getObject();
+
+    if (object == typeid(CoinObject).hash_code()) {
+        setObject(CoinObjectFactory().createObject());
+    } else if (object == typeid(ExitObject).hash_code()) {
+        setObject(ExitObjectFactory().createObject());
+    } else {
+        setObject(nullptr);
     }
 }
 

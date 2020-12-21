@@ -6,33 +6,37 @@ void Loader::execute(std::string fileName, sPlayer &player, listEnemies &enemies
     if (!input_.is_open())
         throw ArchiveException("Wrong file to load from (" + fileName + ')');
 
-    char symbol;
+    size_t hash;
+
     enemies.clear();
     FieldMemento fieldBackup;
     EnemyMemento enemyBackup;
     PlayerMemento playerBackup;
-    FieldStructure structure;
-    memset(&structure, 0, sizeof(FieldStructure));
 
-    while (input_.read(&symbol, 1)) {
+    FileStructure structure;
+    memset(&structure, 0, sizeof(FileStructure));
 
-        if (symbol == HeroType) {
+    while (input_.read((char*)&hash, sizeof(size_t))) {
+
+        if (hash == typeid(PlayerMemento).hash_code()) {
+
             if (structure.player_)
                 throw ArchiveException("There are several copies of player");
 
             loadPlayer(playerBackup);
             player->restore(playerBackup);
             structure.player_ = true;
-        } else if (symbol == TheftType) {
+        } else if (hash == typeid(Enemy<TheftTemplate>).hash_code()) {
             loadEnemy(enemyBackup);
             enemies.push_back(sEnemyAbstract(new Enemy<TheftTemplate>(enemyBackup.getEnemy())));
-        } else if (symbol == AttackType) {
+        } else if (hash == typeid(Enemy<AttackTemplate>).hash_code()) {
             loadEnemy(enemyBackup);
             enemies.push_back(sEnemyAbstract(new Enemy<AttackTemplate>(enemyBackup.getEnemy())));
-        } else if (symbol == DebuffType) {
+        } else if (hash == typeid(Enemy<DebuffTemplate>).hash_code()) {
             loadEnemy(enemyBackup);
             enemies.push_back(sEnemyAbstract(new Enemy<DebuffTemplate>(enemyBackup.getEnemy())));
-        } else if (symbol == FieldType) {
+        } else if (hash == typeid(FieldMemento).hash_code()) {
+
             if (structure.field_)
                 throw ArchiveException("There are several copies of field");
 

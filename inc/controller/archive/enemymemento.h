@@ -2,7 +2,6 @@
 #define ENEMYMEMENTO_H
 
 #include "gameobjects/characters/character.h"
-#include "controller/archive/archivetype.h"
 
 class EnemyMemento {
     Character enemy_;
