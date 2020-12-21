@@ -32,7 +32,7 @@ void Player::restore(PlayerMemento &backup) {
     setPoints(player.getPoints());
     setEnd(player.getEnd());
     setDirection(player.getDirection());
-    addDamageDeal(player.getDamageDeal());
+    setDamageDeal(player.getDamageDeal());
 
     if (type == typeid(GameInteract).hash_code())
         setStrategy(sInteractStrategy(new GameInteract));
