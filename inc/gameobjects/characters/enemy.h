@@ -19,6 +19,7 @@ public:
     explicit Enemy(Character character) : template_(sEnemyTemplate(new EnemyTemplate)) {
         setCoords(character.getCoords());
         setHealth(character.getHealth());
+        setDamageDeal(character.getDamageDeal());
     }
 
     const std::type_info& getTypeInfo() override {

@@ -45,7 +45,7 @@ void PlayerTurnState::playerInteract(GameController &controller) {
         *player += enemy;
         *enemy += *player;
 
-        if (!enemy->getHealth())
+        if (enemy->getHealth() <= 0)
             enemies.remove(enemy);
     }
 

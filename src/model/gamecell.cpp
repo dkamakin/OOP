@@ -8,7 +8,7 @@ void GameCell::setType(CellType type) {
 }
 
 bool GameCell::getPassable() {
-    return !object_ && passable_;
+    return passable_;
 }
 
 sGameObject& GameCell::getObject() {
@@ -33,6 +33,8 @@ void GameCell::restore(CellMemento &backup) {
         setObject(CoinObjectFactory().createObject());
     } else if (object == typeid(ExitObject).hash_code()) {
         setObject(ExitObjectFactory().createObject());
+    } else if (object == typeid (SwordObject).hash_code()) {
+        setObject(SwordObjectFactory().createObject());
     } else {
         setObject(nullptr);
     }

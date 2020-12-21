@@ -66,6 +66,11 @@ HEADERS += \
     inc/controller/commands/endgamecommand.h \
     inc/controller/states/playerturnstate.h \
     inc/controller/commands/command.h \
+    inc/controller/archive/playermemento.h \
+    inc/controller/archive/loader.h \
+    inc/controller/archive/saver.h \
+    inc/controller/commands/loadcommand.h \
+    inc/controller/commands/savecommand.h \
     inc/controller/gamecontroller.h \
     inc/logger/consolelogger.h \
     inc/logger/filelogger.h \
@@ -100,12 +105,7 @@ HEADERS += \
     inc/view/objectmapper.h \
     inc/view/mainwindow.h \
     inc/view/levelmapper.h \
-    inc/view/faqwindow.h \
-    inc/controller/archive/playermemento.h \
-    inc/controller/archive/loader.h \
-    inc/controller/archive/saver.h \
-    inc/controller/commands/loadcommand.h \
-    inc/controller/commands/savecommand.h
+    inc/view/faqwindow.h
 
 FORMS += \
     inc/view/faqwindow.ui \

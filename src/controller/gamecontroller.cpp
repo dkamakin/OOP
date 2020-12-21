@@ -35,7 +35,7 @@ void GameController::newGame() {
     FieldMapper mapper(field_);
     player_ = sPlayer(new Player(Point2D(1, 1), 100, sGameInteract(new GameInteract), 10));
     enemies_.push_back(sEnemyAbstract(new Enemy<TheftTemplate>(Point2D(1, 4), 100, 0)));
-    enemies_.push_back(sEnemyAbstract(new Enemy<AttackTemplate>(Point2D(4, 7), 100, 20)));
+    enemies_.push_back(sEnemyAbstract(new Enemy<AttackTemplate>(Point2D(4, 9), 100, 20)));
     enemies_.push_back(sEnemyAbstract(new Enemy<DebuffTemplate>(Point2D(10, 1), 100, 0)));
     mapper.makeMap();
 }

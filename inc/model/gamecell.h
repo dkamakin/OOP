@@ -6,6 +6,7 @@
 #include "gameobjects/gameobject.h"
 #include "gameobjects/coin/coinobjectfactory.h"
 #include "gameobjects/exit/exitobjectfactory.h"
+#include "gameobjects/sword/swordobjectfactory.h"
 #include "controller/archive/cellmemento.h"
 #include "celltype.h"
 
