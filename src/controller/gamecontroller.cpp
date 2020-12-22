@@ -42,26 +42,12 @@ void GameController::newGame() {
 
 void GameController::loadGame(std::string file) {
     Loader loader;
-
-    try {
-        loader.execute(file, player_, enemies_);
-    } catch (ArchiveException &e) {
-        LoggerContext::getInstance() << e.getMessage() << "\n";
-    } catch (...) {
-        LoggerContext::getInstance() << "Unkown error while loading" << "\n";
-    }
+    loader.execute(file, player_, enemies_);
 }
 
 void GameController::saveGame(std::string file) {
     Saver saver;
-
-    try {
-        saver.execute(file, player_, enemies_);
-    } catch (ArchiveException &e) {
-        LoggerContext::getInstance() << e.getMessage() << "\n";
-    } catch (...) {
-        LoggerContext::getInstance() << "Unkown error while saving" << "\n";
-    }
+    saver.execute(file, player_, enemies_);
 }
 
 void GameController::endGame() {}

@@ -55,8 +55,14 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
             return;
     }
 
-    if (command)
-        command->execute();
+    if (command) {
+        try {
+            command->execute();
+        }  catch (ArchiveException &e) {
+            QMessageBox::warning(this, "Error during save/load", QString::fromStdString(e.getMessage()));
+            return;
+        }
+    }
 
     mapper_->updateScene(controller_, scene_);
 

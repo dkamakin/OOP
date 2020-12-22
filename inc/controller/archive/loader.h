@@ -2,6 +2,7 @@
 #define LOADER_H
 
 #include <cstring>
+#include <map>
 #include "controller/gamecontroller.h"
 #include "filestructure.h"
 
