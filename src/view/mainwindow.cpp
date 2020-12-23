@@ -70,7 +70,6 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
         QMessageBox::information(nullptr, "The end", "The game is over");
         command = sEndGameCommand(new EndGameCommand(controller_));
         command->execute();
-        return;
     }
 }
 
@@ -85,7 +84,6 @@ void MainWindow::on_actionSave_triggered() {
     auto file = QFileDialog::getSaveFileName(this, "Select a file to save the game to").toStdString();
     sCommand command = sSaveCommand(new SaveCommand(controller_, file));
     command->execute();
-    mapper_->updateScene(controller_, scene_);
 }
 
 void MainWindow::on_actionFAQ_triggered() {
